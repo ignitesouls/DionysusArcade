@@ -16,6 +16,8 @@ public sealed class BuildContext
 
     public Dictionary<string, List<string>> Report { get; } = new();
 
+    public List<string> ResourcePacks { get; } = new();
+
     public Random Rng(string key) => Randomizer.GetSeedManager().GetRandomByKey(key);
     public string Resource(params string[] parts) => Path.Combine(ResourcesRoot, Path.Combine(parts));
 }

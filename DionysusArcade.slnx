@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/dependencies/" />
+  <Folder Name="/dependencies/EldenRingParamsEditor/">
+    <Project Path="dependencies/EldenRingParamsEditor/EldenRingParamsEditor/EldenRingParamsEditor.csproj" />
+  </Folder>
+  <Folder Name="/dependencies/EldenRingParamsEditor/dependencies/" />
+  <Folder Name="/dependencies/EldenRingParamsEditor/dependencies/Andre/">
+    <Project Path="dependencies/EldenRingParamsEditor/dependencies/Andre/Andre.Core/Andre.Core.csproj" />
+    <Project Path="dependencies/EldenRingParamsEditor/dependencies/Andre/Andre.Formats/Andre.Formats.csproj" />
+  </Folder>
+  <Folder Name="/dependencies/EldenRingParamsEditor/dependencies/Andre/SoulsFormats/">
+    <Project Path="dependencies/EldenRingParamsEditor/dependencies/Andre/SoulsFormats/SoulsFormats/SoulsFormats.csproj" />
+  </Folder>
+  <Folder Name="/dependencies/UniversalReplacementRandomizer/">
+    <Project Path="dependencies/UniversalReplacementRandomizer/UniversalReplacementRandomizer/UniversalReplacementRandomizer.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Dionysus.App/Dionysus.App.csproj" />
+    <Project Path="src/Dionysus.Core/Dionysus.Core.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/Dionysus.ParityCheck/Dionysus.ParityCheck.csproj" />
+  </Folder>
+</Solution>

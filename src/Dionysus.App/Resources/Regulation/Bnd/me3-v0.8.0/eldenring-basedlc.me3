@@ -1,0 +1,18 @@
+profileVersion = "v1"
+
+[[supports]]
+game = "eldenring"
+
+[[package]]
+id = "athena-randomizer-basedlc"
+path = "basedlc"
+
+[[natives]]
+path = 'StutterFix/DINPUT8.DLL'
+
+[[natives]]
+path = 'CrashFix/RandomizerCrashFix.dll'
+
+[[natives]]
+path = 'EROverlay/er_overlay.dll'
+

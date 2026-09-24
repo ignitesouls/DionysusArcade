@@ -1,0 +1,14 @@
+profileVersion = "v1"
+
+[[supports]]
+game = "eldenring"
+
+[[package]]
+id = "athena-randomizer-base"
+path = "base"
+
+[[natives]]
+path = 'StutterFix/DINPUT8.DLL'
+
+[[natives]]
+path = 'CrashFix/RandomizerCrashFix.dll'

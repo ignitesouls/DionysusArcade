@@ -162,8 +162,9 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     {
         if (theme == "System")
         {
-            // Follows Windows' light/dark setting, including live changes
+            // Apply the current Windows setting now, then keep following it
             SystemThemeWatcher.Watch(this);
+            ApplicationThemeManager.ApplySystemTheme();
             _watchingSystemTheme = true;
             return;
         }

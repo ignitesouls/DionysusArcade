@@ -1,12 +1,30 @@
 ﻿<Window x:Class="Dionysus.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Dionysus.App"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Dionysus Arcade" Height="700" Width="900" MinHeight="500" MinWidth="700"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel Margin="16">
 
-    </Grid>
+        <!-- Top: seed and actions -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
+            <TextBlock Text="Seed:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox x:Name="SeedBox" Width="160" VerticalContentAlignment="Center"
+                     ToolTip="Leave empty for a random seed"/>
+            <Button x:Name="RandomizeButton" Content="Randomize" Padding="16,6" Margin="12,0,0,0"
+                    Click="RandomizeButton_Click"/>
+            <Button x:Name="LaunchButton" Content="Launch Elden Ring" Padding="16,6" Margin="8,0,0,0"
+                    Click="LaunchButton_Click"/>
+        </StackPanel>
+
+        <!-- Status line -->
+        <TextBlock x:Name="StatusText" DockPanel.Dock="Top" Margin="0,0,0,8" TextWrapping="Wrap"/>
+
+        <!-- Results of the last build, e.g. starting graces -->
+        <TextBlock x:Name="ReportText" DockPanel.Dock="Top" Margin="0,0,0,12" TextWrapping="Wrap"/>
+
+        <!-- Options, generated from the modules in Step 12 -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="OptionsPanel"/>
+        </ScrollViewer>
+    </DockPanel>
 </Window>

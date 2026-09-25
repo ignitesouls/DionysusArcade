@@ -12,7 +12,7 @@ namespace Dionysus.App;
 
 public partial class MainWindow : Window
 {
-    private static readonly string ResourcesRoot = Path.Combine(AppContext.BaseDirectory, "Resources");
+    private static readonly string ResourcesRoot = AppPaths.ResourcesRoot;
 
     private readonly AppSettings _settings = SettingsService.Load();
 

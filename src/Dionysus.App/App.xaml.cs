@@ -10,7 +10,7 @@ public partial class App : Application
     {
         // SoulsFormats and ParamsEditor find their files relative to the working directory,
         // so always run from the app's own folder, however the app was launched.
-        Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+        Directory.SetCurrentDirectory(AppPaths.AppFolder);
         base.OnStartup(e);
     }
 }

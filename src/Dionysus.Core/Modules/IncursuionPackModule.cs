@@ -17,6 +17,7 @@ public sealed class IncursionPackModule : IModule
 
     public bool IsActive(OptionSet options) => options.GetBool("incursion.enabled");
 
-    public void Apply(BuildContext context) =>
-        context.ResourcePacks.Add(context.Resource("ModeFolders", "full_incursion"));
+    public void Apply(BuildContext context) { }
+
+    public IEnumerable<string> Packs(OptionSet options) => new[] { "Incursion" };
 }

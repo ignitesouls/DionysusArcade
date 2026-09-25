@@ -1,8 +1,7 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
-using Dionysus.Core.FormatEditors;
 using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
-using EldenRingParamsEditor;
+using Dionysus.Core.Workspace;
 using UniversalReplacementRandomizer;
 
 namespace Dionysus.Core.Pipeline;
@@ -11,43 +10,52 @@ public sealed record BuildResult(int Seed, Dictionary<string, List<string>> Repo
 
 public static class BuildPipeline
 {
-    // Same prefix as the old app, so the same seed gives the same result.
-    private const string SeedPrefix = "basedlcv0.2_incursion";
+    // The same seed with the same settings gives the same result within one app version.
+    // Update this with each release.
+    private const string SeedPrefix = "dionysus-v0.3";
 
     public static BuildResult Run(string resourcesRoot, int? seed, IReadOnlyDictionary<string, object?> overrides)
     {
-        // Battleship inputs for now. Templates will choose these later.
-        string regulationIn = Path.Combine(resourcesRoot, "Regulation", "battleship", "regulation.bin");
-        string menuIn = Path.Combine(resourcesRoot, "Bnd", "basedlc", "menu_dlc02.msgbnd.dcx");
         string packageDir = Path.Combine(resourcesRoot, "me3-v0.8.0", "basedlc");
+
+        var options = new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), overrides);
+        List<IModule> active = ModuleRegistry.All.Where(m => m.IsActive(options)).ToList();
+
+        // Packs requested by the active modules, in module order.
+        // When two packs contain the same file, the later one wins.
+        List<string> packs = active
+            .SelectMany(m => m.Packs(options))
+            .Select(name => Path.Combine(resourcesRoot, "Packs", name))
+            .ToList();
+
+        // File sources, highest priority first: packs (last one first), then the bundled vanilla files
+        var sources = new List<string>();
+        for (int i = packs.Count - 1; i >= 0; i--)
+        {
+            sources.Add(packs[i]);
+        }
+        sources.Add(Path.Combine(resourcesRoot, "Vanilla"));
 
         var context = new BuildContext
         {
-            Params = ParamsEditor.ReadFromRegulationPath(regulationIn),
-            MenuText = MenuBndEditorService.ReadFromMenuBndFilePath(menuIn),
+            Files = new GameFiles(sources),
             Randomizer = new OptimizedReplacementRandomizer(SeedPrefix, seed),
-            Options = new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), overrides),
+            Options = options,
             ResourcesRoot = resourcesRoot
         };
 
-        // Run every active module, in order
-        foreach (IModule module in ModuleRegistry.All)
+        foreach (IModule module in active)
         {
-            if (module.IsActive(context.Options))
-            {
-                module.Apply(context);
-            }
+            module.Apply(context);
         }
 
-        // Output: clear the package, copy resource packs, then write the generated files on top
+        // Output: clear the package, copy the packs, then write the edited files on top
         ClearFolder(packageDir);
-        foreach (string pack in context.ResourcePacks)
+        foreach (string pack in packs)
         {
             CopyFolder(pack, packageDir);
         }
-
-        context.Params.WriteToRegulationPath(Path.Combine(packageDir, "regulation.bin"));
-        context.MenuText.WriteToMenuBndFilePath(Path.Combine(packageDir, "msg", "engus", "menu_dlc02.msgbnd.dcx"));
+        context.Files.WriteAll(packageDir);
 
         return new BuildResult(context.Randomizer.GetBaseSeed(), context.Report);
     }

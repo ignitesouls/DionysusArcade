@@ -481,7 +481,4 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-
-src/Dionysus.App/Resources/ModeFolders/
-
 publish/

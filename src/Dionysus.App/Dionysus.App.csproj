@@ -12,11 +12,21 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+	<ApplicationIcon>Assets\dionysus.ico</ApplicationIcon>
   </PropertyGroup>
 
 	<ItemGroup>
 		<None Update="oo2core_6_win64.dll" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
 		<None Update="Resources\**\*" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="WPF-UI" Version="4.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Assets\**" />
+		<Resource Include="Assets\**" />
 	</ItemGroup>
 
 </Project>

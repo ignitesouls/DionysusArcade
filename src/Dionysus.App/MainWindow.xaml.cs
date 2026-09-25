@@ -7,10 +7,11 @@ using Dionysus.App.Services;
 using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
 using Dionysus.Core.Pipeline;
+using Wpf.Ui.Appearance;
 
 namespace Dionysus.App;
 
-public partial class MainWindow : Window
+public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 {
     private static readonly string ResourcesRoot = AppPaths.ResourcesRoot;
 
@@ -34,6 +35,8 @@ public partial class MainWindow : Window
         // If there was a previous build, the package on disk matches the restored seed and options
         _buildIsCurrent = _settings.LastBuiltSeed != null;
         UpdateButtons();
+
+        SetUpTheme();
     }
 
     // ---------- Options panel ----------
@@ -136,6 +139,42 @@ public partial class MainWindow : Window
                 ? $"Ready to launch (seed {_settings.LastBuiltSeed})."
                 : "Click Randomize to build the mod with the current seed and options.";
         }
+    }
+
+    // ---------- Theme ----------
+
+    private bool _watchingSystemTheme;
+
+    private void SetUpTheme()
+    {
+        ThemeBox.SelectedIndex = _settings.Theme switch { "Light" => 1, "Dark" => 2, _ => 0 };
+        ApplyTheme(_settings.Theme);
+
+        ThemeBox.SelectionChanged += (_, _) =>
+        {
+            _settings.Theme = ((ComboBoxItem)ThemeBox.SelectedItem).Content.ToString()!;
+            SettingsService.Save(_settings);
+            ApplyTheme(_settings.Theme);
+        };
+    }
+
+    private void ApplyTheme(string theme)
+    {
+        if (theme == "System")
+        {
+            // Follows Windows' light/dark setting, including live changes
+            SystemThemeWatcher.Watch(this);
+            _watchingSystemTheme = true;
+            return;
+        }
+
+        if (_watchingSystemTheme)
+        {
+            SystemThemeWatcher.UnWatch(this);
+            _watchingSystemTheme = false;
+        }
+
+        ApplicationThemeManager.Apply(theme == "Dark" ? ApplicationTheme.Dark : ApplicationTheme.Light);
     }
 
     // ---------- Buttons ----------

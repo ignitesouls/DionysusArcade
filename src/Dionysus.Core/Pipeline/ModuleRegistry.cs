@@ -14,6 +14,7 @@ public static class ModuleRegistry
         // Item Shuffle goes here
         new TweaksModule(),
         // Talisman Shop goes here
+        new TalismanShopModule(),
         new IncursionPackModule(),
     };
 }

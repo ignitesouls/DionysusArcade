@@ -4,7 +4,7 @@ profileVersion = "v1"
 game = "eldenring"
 
 [[package]]
-id = "athena-randomizer-dlc"
+id = "dionysus-dlc"
 path = "dlc"
 
 [[natives]]

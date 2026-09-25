@@ -11,7 +11,7 @@ public static class ModuleRegistry
     {
         new StartingGracesModule(),
         new StartingClassesModule(),
-        // Item Shuffle goes here
+        new ItemShuffleModule(),
         new TweaksModule(),
         new TalismanShopModule(),
         new IncursionPackModule(),

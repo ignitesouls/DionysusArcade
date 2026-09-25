@@ -10,10 +10,9 @@ public static class ModuleRegistry
     public static IReadOnlyList<IModule> All { get; } = new List<IModule>
     {
         new StartingGracesModule(),
-        // Starting Classes goes here
+        new StartingClassesModule(),
         // Item Shuffle goes here
         new TweaksModule(),
-        // Talisman Shop goes here
         new TalismanShopModule(),
         new IncursionPackModule(),
     };

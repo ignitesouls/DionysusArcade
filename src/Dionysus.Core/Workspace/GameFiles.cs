@@ -1,6 +1,7 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
 using Dionysus.Core.FormatEditors;
 using EldenRingParamsEditor;
+using SoulsFormats;
 
 namespace Dionysus.Core.Workspace;
 
@@ -12,20 +13,30 @@ public sealed class GameFiles
     public const string MenuTextPath = "msg/engus/menu_dlc02.msgbnd.dcx";
 
     private readonly IReadOnlyList<string> _sources;
+    private readonly IReadOnlyList<string> _paramPatches;
+    private readonly string _defsFolder;
     private readonly Dictionary<string, OpenFile> _open = new(StringComparer.OrdinalIgnoreCase);
 
     private sealed record OpenFile(object Editor, Action<string> Write);
 
-    public GameFiles(IReadOnlyList<string> sources)
+    public GameFiles(IReadOnlyList<string> sources, IReadOnlyList<string> paramPatches, string defsFolder)
     {
         _sources = sources;
+        _paramPatches = paramPatches;
+        _defsFolder = defsFolder;
     }
 
     // ---------- File types ----------
     // Each supported file type is one property: its game path, how to open it, and how to save it.
 
+    // The regulation is patched first, then handed to ParamsEditor, so every module builds on the patched params
     public ParamsEditor Params => Open<ParamsEditor>(RegulationPath,
-        ParamsEditor.ReadFromRegulationPath,
+        path =>
+        {
+            BND4 regulation = SFUtil.DecryptERRegulation(path);
+            ParamPatcher.Apply(regulation, _paramPatches, _defsFolder);
+            return ParamsEditor.FromRegulationBnd(regulation);
+        },
         (editor, path) => editor.WriteToRegulationPath(path));
 
     public MenuBndEditorService MenuText => Open<MenuBndEditorService>(MenuTextPath,

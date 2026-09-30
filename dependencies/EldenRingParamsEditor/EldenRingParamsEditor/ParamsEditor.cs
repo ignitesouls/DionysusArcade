@@ -301,6 +301,17 @@ public partial class ParamsEditor
         return new(regulationPath);
     }
 
+    // Added for Dionysus: open a regulation that has already been decrypted (and possibly patched)
+    private ParamsEditor(BND4 regulationBnd)
+    {
+        _regulationBnd = regulationBnd;
+    }
+
+    public static ParamsEditor FromRegulationBnd(BND4 regulationBnd)
+    {
+        return new(regulationBnd);
+    }
+
     public void WriteToRegulationPath(string regulationPath)
     {
         foreach (BinderFile file in _regulationBnd.Files)

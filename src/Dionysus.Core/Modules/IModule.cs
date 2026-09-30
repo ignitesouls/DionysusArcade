@@ -15,4 +15,8 @@ public interface IModule
     // Folders under Resources/Packs that this module adds to the game while active.
     // Most modules add none, so this has a default and they don't need to mention it.
     IEnumerable<string> Packs(OptionSet options) => Array.Empty<string>();
+
+
+    // Patch files under Resources/ParamPatches that this module applies while active.
+    IEnumerable<string> ParamPatches(OptionSet options) => Array.Empty<string>();
 }

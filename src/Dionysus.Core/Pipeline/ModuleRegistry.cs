@@ -16,5 +16,6 @@ public static class ModuleRegistry
         new TweaksModule(),
         new TalismanShopModule(),
         new IncursionPackModule(),
+        new ParamPatchModule(),
     };
 }

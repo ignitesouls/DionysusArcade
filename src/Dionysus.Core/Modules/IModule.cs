@@ -19,4 +19,8 @@ public interface IModule
 
     // Patch files under Resources/ParamPatches that this module applies while active.
     IEnumerable<string> ParamPatches(OptionSet options) => Array.Empty<string>();
+
+
+    // Patch files under Resources/TextPatches that this module applies while active.
+    IEnumerable<string> TextPatches(OptionSet options) => Array.Empty<string>();
 }

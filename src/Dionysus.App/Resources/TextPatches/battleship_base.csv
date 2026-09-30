@@ -1,0 +1,164 @@
+﻿File,Id,Vanilla,Value
+EventTextForTalk.fmg,26001002,,First Scadubingo Champion
+EventTextForTalk.fmg,26001003,,Second Scadubingo Champion
+EventTextForTalk.fmg,26001004,,Third Scadubingo Champion
+EventTextForTalk.fmg,26001005,,Fourth Scadubingo Champion
+EventTextForTalk.fmg,26001006,,Starting Conditions
+EventTextForTalk.fmg,26001007,,Starting Graces
+EventTextForTalk.fmg,26001008,,Base Game Progression
+EventTextForTalk.fmg,26001009,,DLC Progression
+EventTextForTalk.fmg,26001010,,Global Rules
+EventTextForTalk.fmg,26001011,,Merchants & Items
+EventTextForTalk.fmg,26001012,,Progression Triggers
+EventTextForTalk.fmg,26001013,,Starting Location & Runes
+EventTextForTalk.fmg,26001014,,Starting Stats
+EventTextForTalk.fmg,26001015,,Starting Items
+EventTextForTalk.fmg,26001016,,Smithing Changes
+EventTextForTalk.fmg,26001017,,Limgrave
+EventTextForTalk.fmg,26001018,,Weeping Peninsula
+EventTextForTalk.fmg,26001019,,Caelid / Dragonbarrow
+EventTextForTalk.fmg,26001020,,Liurnia
+EventTextForTalk.fmg,26001021,,How Liurnia Works
+EventTextForTalk.fmg,26001022,,North Grace Pool
+EventTextForTalk.fmg,26001023,,South Grace Pool
+EventTextForTalk.fmg,26001024,,East Grace Pool
+EventTextForTalk.fmg,26001025,,West Grace Pool
+EventTextForTalk.fmg,26001026,,Dectus Progression
+EventTextForTalk.fmg,26001027,,Altus Progression
+EventTextForTalk.fmg,26001028,,Haligtree Access
+EventTextForTalk.fmg,26001029,,Mohgwyn Palace Access
+EventTextForTalk.fmg,26001030,,Crumbling Farum Azula
+EventTextForTalk.fmg,26001031,,Ashen Capital
+EventTextForTalk.fmg,26001032,,Other Progression
+EventTextForTalk.fmg,26001033,,Unlocking the DLC
+EventTextForTalk.fmg,26001034,,DLC Entry Rewards
+EventTextForTalk.fmg,26001035,,Ancient Dragon-Man
+EventTextForTalk.fmg,26001036,,Enir-Ilim Access
+EventTextForTalk.fmg,26001037,,Promised Consort Radahn
+EventTextForTalk.fmg,26001038,,World Changes
+EventTextForTalk.fmg,26001039,,Boss Changes
+EventTextForTalk.fmg,26001040,,Torrent Changes
+EventTextForTalk.fmg,26001041,,Miscellaneous Changes
+EventTextForTalk.fmg,26001042,,Bernie Bingo
+EventTextForTalk.fmg,26001043,,Bernie Talisman Rule
+EventTextForTalk.fmg,26001044,,Other Merchants
+EventTextForTalk.fmg,26001045,,Randomized Items
+EventTextForTalk.fmg,26001046,,Base Game Triggers
+EventTextForTalk.fmg,26001047,,DLC Triggers
+EventTextForTalk.fmg,26001048,,"Players begin in Roundtable Hold with 10,000 runes."
+EventTextForTalk.fmg,26001049,,Every class begins with 20 Vigor. Players begin with Scadutree Blessing Level 5.
+EventTextForTalk.fmg,26001050,,"Players begin with the Whetstone Knife, Dark Moon Ring,
+Cursemark of Death, and Flask of Wondrous Physick."
+EventTextForTalk.fmg,26001051,,Smithing upgrades require only 1 Smithing Stone per upgrade level.
+EventTextForTalk.fmg,26001052,,"Stranded Graveyard + 1 of Stormhill Shack, Warmaster's Shack, Saintsbridge, 
+Third Church of Marika, Gatefront, Agheel Lake North, Summoningwater Village, 
+Artist's Shack, Agheel Lake South, Seaside Ruins, Murkwater Coast"
+EventTextForTalk.fmg,26001053,,"1 Random Weeping Grace of Isolated Merchant's Shack, 
+South of the Lookout Tower, Church of Pilgrimage, Ailing Village Outskirts, 
+Bridge of Sacrifice, Castle Morne Rampart, Fourth Church of Marika, Tombsward"
+EventTextForTalk.fmg,26001054,,"1 Random Caelid Grace of Inner Aeonia, Sellia Under-Stair, Sellia Backstreets
+Aeonia Swamp Shore, Caelem Ruins, Fort Gael North, Southern Aeonia Swamp Bank
+Astray from Caelid Highway, Smoldering Wall, Lenne's Rise, Dragonbarrow West"
+EventTextForTalk.fmg,26001055,,"Liurnia grants 2 randomized graces,
+using either North + South or East + West."
+EventTextForTalk.fmg,26001056,,"The Ravine, Ravine-Veiled Village, Frenzied Flame Village Outskirts,
+East Gate Bridge Trestle, Sorcerer's Isle, Gate Town North,
+Foot of the Four Belfries, Road to the Manor, East Raya Lucaria Gate"
+EventTextForTalk.fmg,26001057,,"South Raya Lucaria Gate, Academy Gate Town, Fallen Ruins of the Lake,
+Boilprawn Shack, Scenic Isle, Liurnia Highway North,
+Liurnia Highway South, Laskyar Ruins, Liurnia Lake Shore"
+EventTextForTalk.fmg,26001058,,"Gate Town Bridge, Laskyar Ruins, Scenic Isle, Academy Gate Town,
+Liurnia Highway North, Liurnia Lake Shore, Frenzied Flame Village Outskirts,
+Eastern Liurnia Lake Shore, Artist's Shack"
+EventTextForTalk.fmg,26001059,,"Temple Quarter, Foot of the Four Belfries, Road to the Manor,
+Sorcerer's Isle, East Gate Bridge Trestle, Fallen Ruins of the Lake,
+Crystalline Woods"
+EventTextForTalk.fmg,26001060,,"Dectus Left unlocks Fort Faroth grace,
+Dectus Right unlocks Fort Haight grace.
+The trigger is one-directional."
+EventTextForTalk.fmg,26001061,,"Altus grace unlocks 3 Sacred Tears & Outer Wall Battleground,
+Road of Iniquity, Craftsman's Shack, Snow Valley Ruins Overlook,
+Inner Consecrated Snowfield, Nameless Eternal City, Lake of Rot Shoreside."
+EventTextForTalk.fmg,26001062,,"The Ordina portal barrier is removed.
+Touching Haligtree Canopy unlocks Elphael Inner Wall."
+EventTextForTalk.fmg,26001063,,"Touch the Sword Monument at Rose Church and wait for the unlock message.
+At the Snowfield portal, defeat or despawn the Sanguine Noble Invader,
+then activate the portal."
+EventTextForTalk.fmg,26001064,,"Foot of the Forge unlocks Crumbling Beast Grave.
+Dragon Temple unlocks Dragon Temple Rooftop,
+Beside the Great Bridge, and Ruins of the First Lord."
+EventTextForTalk.fmg,26001065,,"Restore any Great Rune except Rennala's to unlock Queen's Bedchamber.
+Ashen Capital functions as a separate pocket dimension."
+EventTextForTalk.fmg,26001066,,"Defeating Radahn unlocks War-Dead Catacombs.
+Progressing D after giving the Weathered Dagger grants
+Prince of Death's Throne. Academy Abduction uses Randomizer logic."
+EventTextForTalk.fmg,26001067,,"DLC access requires any 2 Early Remembrance bosses,
+any 1 Advanced Remembrance boss,
+or defeating Godfrey in Ashen Capital."
+EventTextForTalk.fmg,26001068,,"Early Remembrances
+Godrick the Grafted, Rennala, Starscourge Radahn,
+Regal Ancestor Spirit, Rykard, Astel"
+EventTextForTalk.fmg,26001069,,"Advanced Remembrances
+Lichdragon Fortissax, Mohg, Malenia, Fire Giant,
+Morgott, Maliketh, Dragonlord Placidusax, Hoarah Loux"
+EventTextForTalk.fmg,26001070,,"DLC access grants Scorched Ruins, Moorth Ruins, Manse Hall,
+5 Golden Seeds, and 5 Sacred Tears."
+EventTextForTalk.fmg,26001071,,"Defeating Ancient Dragon-Man unlocks Charo's Hidden Grave,
+Foot of the Jagged Peak, and The Fissure."
+EventTextForTalk.fmg,26001072,,"After defeating Messmer and Romina, burn the Sealing Tree
+to unlock Divine Gate Front Staircase."
+EventTextForTalk.fmg,26001073,,"Entering the Promised Consort Radahn fight grants +5 Scadutree Blessing.
+The bonus is removed on death or when Radahn dies."
+EventTextForTalk.fmg,26001074,,"Leyndell is unlocked from the start, and 
+the Radahn Festival is active from the start.
+There is a spirit spring near the Altus Overworld Black Knife"
+EventTextForTalk.fmg,26001075,,"Both Ancestor Spirit fights require only 1 brazier,
+and Metyr requires only 1 horn."
+EventTextForTalk.fmg,26001076,,"Torrent can be ridden inside: Either Astel Arena
+Regal Ancestor Spirit, and Ancestor Spirit"
+EventTextForTalk.fmg,26001077,,"The Roundtable Hold fist check is removed,
+all classes begin with 20 Vigor,
+rain is removed, and golden eyes are removed."
+EventTextForTalk.fmg,26001078,,"Bernie Bingo is located in Roundtable Hold near the Twin Maiden Husks,
+and sells routing and combat support items."
+EventTextForTalk.fmg,26001079,,"Buying a talisman from Bernie Bingo removes its overworld counterpart.
+Drake Talismans are exempt from this rule."
+EventTextForTalk.fmg,26001080,,"Pidia sells the Magic Scorpion Charm for 5,000 runes,
+the Hermit Altus merchant sells Sentry's Torch,
+and the Dragonbarrow merchant sells Beast-Repellent Torch."
+EventTextForTalk.fmg,26001081,,"Sword of Light, Sword of Darkness, and Stone-Sheathed Sword
+are not randomized. DLC perfume bottles only randomize within the DLC."
+EventTextForTalk.fmg,26001082,,"Dectus Left -> Fort Faroth, Dectus Right -> Fort Haight,
+Altus Grace -> Progression Graces, Haligtree Canopy -> Elphael Inner Wall,
+Foot of the Forge -> Crumbling Beast Grave, Dragon Temple -> Farum Azula Graces"
+EventTextForTalk.fmg,26001083,,"Restore Great Rune -> Ashen Capital, Gain DLC Access -> DLC Graces and Rewards,
+Ancient Dragon-Man -> Southern DLC Graces, Burn Sealing Tree -> Divine Gate,
+Enter Consort Radahn -> Temporary +5 Blessing"
+EventTextForMap.fmg,30067,,Some early game graces were unlocked
+EventTextForMap.fmg,30068,,"Some base game graces were unlocked, including underground"
+EventTextForMap.fmg,30069,,Some DLC graces were unlocked
+EventTextForMap.fmg,30070,,Haligtree Roots grace was unlocked
+EventTextForMap.fmg,30071,,A seal in town and Haligtree and Mohgwyn graces were unlocked
+EventTextForMap.fmg,30072,,Some south graces were unlocked
+EventTextForMap.fmg,30073,,War-Dead Catacombs grace was unlocked
+EventTextForMap.fmg,30074,,"War-Dead Catacombs grace, some DLC graces, and Capital were unlocked"
+EventTextForMap.fmg,30075,,The Divine Gate Front Staircase grace was unlocked
+EventTextForMap.fmg,30076,,The Elphael Inner Wall grace was unlocked
+EventTextForMap.fmg,30077,,Viaduct Minor Tower grace has been unlocked
+EventTextForMap.fmg,30078,,Dragon Temple Rooftop grace has been unlocked
+EventTextForMap.fmg,30079,,The Mohgwyn Teleporter is now Accessible
+EventTextForMap.fmg,30151,,Ashen Capital Has been Unlocked
+EventTextForMap.fmg,30152,,Crumbling Beast Grave Graces has been Unlocked
+EventTextForMap.fmg,30153,,3 Further Farum Azula Graces have been Unlocked
+EventTextForMap.fmg,30154,,Prince of Death's Throne Grace Has been Unlocked
+EventTextForMap.fmg,30155,,Fort Faroth Grace has been Unlocked
+EventTextForMap.fmg,30156,,Fort Haight Grace has been Unlocked
+GR_MenuText.fmg,401001,"©Bandai Namco Entertainment Inc. / ©2026 FromSoftware, Inc.","©Bandai Namco Entertainment Inc. / ©2024 FromSoftware, Inc."
+GR_MenuText.fmg,401002,"©Bandai Namco Entertainment Inc. / ©2026 FromSoftware, Inc.","©Bandai Namco Entertainment Inc. / ©2024 FromSoftware, Inc."
+GR_LineHelp.fmg,297140,"A knight of the land of Idus, famed for
+their lightweight attire and weaponry,
+which they wield with ample dexterity.",
+GR_LineHelp.fmg,297141,"A knight in bulky steel armor capable of
+mowing through foes with a substantively-
+sized scimitar.",
+EventTextForMap_dlc02.fmg,2001,,DLC dummy

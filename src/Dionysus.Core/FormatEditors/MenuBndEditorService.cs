@@ -1,35 +1,20 @@
-﻿using SoulsFormats;
-using System.IO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// SPDX-License-Identifier: GPL-3.0-only
+using SoulsFormats;
 
 namespace Dionysus.Core.FormatEditors;
+
 public class MenuBndEditorService
 {
-    BND4 menuBnd;
-    FMG lineHelp;
+    private readonly BND4 menuBnd;
+    private readonly FMG lineHelp;
     public static readonly int[] LineHelpClassDescriptionIDs = { 297130, 297131, 297132, 297133, 297134, 297135, 297138, 297136, 297137, 297139, 297140, 297141 };
 
-    private MenuBndEditorService(string menuBndFilePathIn) {
-
-        byte[] menuBndBytes = File.ReadAllBytes(menuBndFilePathIn);
-        menuBnd = BND4.Read(menuBndBytes);
-        FMG? menuLineHelp = null;
-        foreach (BinderFile file in menuBnd.Files)
-        {
-            if (Path.GetFileName(file.Name) == "GR_LineHelp.fmg")
-            {
-                menuLineHelp = FMG.Read(file.Bytes);
-            }
-        }
-        if (menuLineHelp == null)
-        {
-            throw new Exception("Failed to read FMG file necessary for rewriting starting class descriptions.");
-        }
-        lineHelp = menuLineHelp;
+    private MenuBndEditorService(BND4 bnd)
+    {
+        menuBnd = bnd;
+        BinderFile file = menuBnd.Files.FirstOrDefault(f => Path.GetFileName(f.Name) == "GR_LineHelp.fmg")
+            ?? throw new Exception("Failed to read FMG file necessary for rewriting starting class descriptions.");
+        lineHelp = FMG.Read(file.Bytes);
     }
 
     public void SetClassDescription(int i, string classDescription)
@@ -38,26 +23,23 @@ public class MenuBndEditorService
         lineHelp[lineHelpFmgIndex] = classDescription;
     }
 
-    public static MenuBndEditorService ReadFromMenuBndFilePath(string menuBndFilePathIn)
-    {
-        return new(menuBndFilePathIn);
-    }
+    public static MenuBndEditorService ReadFromMenuBndFilePath(string menuBndFilePathIn) =>
+        new(BND4.Read(File.ReadAllBytes(menuBndFilePathIn)));
+
+    // Opens an archive that has already been read (and possibly patched)
+    public static MenuBndEditorService FromBnd(BND4 bnd) => new(bnd);
 
     public void WriteToMenuBndFilePath(string menuBndFilePathOut)
     {
-        if (menuBnd != null)
+        foreach (BinderFile file in menuBnd.Files)
         {
-            foreach (BinderFile file in menuBnd.Files)
+            if (Path.GetFileName(file.Name) == "GR_LineHelp.fmg")
             {
-                if (Path.GetFileName(file.Name) == "GR_LineHelp.fmg")
-                {
-                    file.Bytes = lineHelp.Write();
-                }
+                file.Bytes = lineHelp.Write();
             }
-            byte[] menuBndBytes = menuBnd.Write();
-
-            Directory.CreateDirectory(Path.GetDirectoryName(menuBndFilePathOut)!);
-            File.WriteAllBytes(menuBndFilePathOut, menuBndBytes);
         }
+
+        Directory.CreateDirectory(Path.GetDirectoryName(menuBndFilePathOut)!);
+        File.WriteAllBytes(menuBndFilePathOut, menuBnd.Write());
     }
 }

@@ -1,4 +1,5 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
+using Dionysus.Core.FormatEditors;
 using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
 using Dionysus.Core.Workspace;
@@ -34,6 +35,12 @@ public static class BuildPipeline
             .Select(name => Path.Combine(resourcesRoot, "ParamPatches", name))
             .ToList();
 
+        // Text patch files requested by the active modules, applied in module order
+        List<string> textPatches = active
+            .SelectMany(m => m.TextPatches(options))
+            .Select(name => Path.Combine(resourcesRoot, "TextPatches", name))
+            .ToList();
+
         // File sources, highest priority first: packs (last one first), then the bundled vanilla files
         var sources = new List<string>();
         for (int i = packs.Count - 1; i >= 0; i--)
@@ -44,7 +51,7 @@ public static class BuildPipeline
 
         var context = new BuildContext
         {
-            Files = new GameFiles(sources, paramPatches, Path.Combine(resourcesRoot, "Defs")),
+            Files = new GameFiles(sources, paramPatches, textPatches, Path.Combine(resourcesRoot, "Defs")),
             Randomizer = new OptimizedReplacementRandomizer(SeedPrefix, seed),
             Options = options,
             ResourcesRoot = resourcesRoot
@@ -54,6 +61,11 @@ public static class BuildPipeline
         if (paramPatches.Count > 0)
         {
             _ = context.Params;
+        }
+
+        if (textPatches.Count > 0)
+        {
+            _ = context.MenuText;
         }
 
         foreach (IModule module in active)

@@ -14,15 +14,18 @@ public sealed class GameFiles
 
     private readonly IReadOnlyList<string> _sources;
     private readonly IReadOnlyList<string> _paramPatches;
+    private readonly IReadOnlyList<string> _textPatches;
     private readonly string _defsFolder;
     private readonly Dictionary<string, OpenFile> _open = new(StringComparer.OrdinalIgnoreCase);
 
     private sealed record OpenFile(object Editor, Action<string> Write);
 
-    public GameFiles(IReadOnlyList<string> sources, IReadOnlyList<string> paramPatches, string defsFolder)
+    public GameFiles(IReadOnlyList<string> sources, IReadOnlyList<string> paramPatches,
+        IReadOnlyList<string> textPatches, string defsFolder)
     {
         _sources = sources;
         _paramPatches = paramPatches;
+        _textPatches = textPatches;
         _defsFolder = defsFolder;
     }
 
@@ -39,8 +42,14 @@ public sealed class GameFiles
         },
         (editor, path) => editor.WriteToRegulationPath(path));
 
+    // The menu text is patched first, then handed to the menu editor
     public MenuBndEditorService MenuText => Open<MenuBndEditorService>(MenuTextPath,
-        MenuBndEditorService.ReadFromMenuBndFilePath,
+        path =>
+        {
+            BND4 menu = BND4.Read(File.ReadAllBytes(path));
+            TextPatcher.Apply(menu, _textPatches);
+            return MenuBndEditorService.FromBnd(menu);
+        },
         (editor, path) => editor.WriteToMenuBndFilePath(path));
 
     // ---------- Mechanics ----------

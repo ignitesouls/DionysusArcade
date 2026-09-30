@@ -9,13 +9,12 @@ public static class ModuleRegistry
     // graces, starting classes, item shuffle, tweaks, talisman shop, then packs.
     public static IReadOnlyList<IModule> All { get; } = new List<IModule>
     {
-        new BattleshipBasePackModule(),
+        new PatchModule(),
         new StartingGracesModule(),
         new StartingClassesModule(),
         new ItemShuffleModule(),
         new TweaksModule(),
         new TalismanShopModule(),
         new IncursionPackModule(),
-        new ParamPatchModule(),
     };
 }

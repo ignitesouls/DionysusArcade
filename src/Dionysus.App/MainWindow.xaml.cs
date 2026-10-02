@@ -9,7 +9,6 @@ using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
 using Dionysus.Core.Pipeline;
 using Dionysus.Core.Presets;
-using Wpf.Ui.Appearance;
 
 namespace Dionysus.App;
 
@@ -28,11 +27,20 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     // Fingerprint (seed + every option value) of the package on disk, or null if there isn't a usable one
     private string? _lastBuildFingerprint;
     private bool _busy;
-    private bool _watchingSystemTheme;
 
     public MainWindow()
     {
         InitializeComponent();
+
+        // Keep the overlay's token in sync, e.g. after installing a new version of Dionysus
+        try
+        {
+            OverlayConfigService.WriteToken(_settings.BattleshipToken);
+        }
+        catch (IOException)
+        {
+            // Not worth stopping startup over; saving the token in Settings reports any problem
+        }
 
         BuildOptionsPanel();
         LoadPresetList();
@@ -54,7 +62,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         ModeList.SelectedItem = _presets.FirstOrDefault(p => p.DisplayName == _settings.LastMode) ?? _presets.FirstOrDefault();
         ShowSelectedMode();
 
-        SetUpTheme();
+        ThemeService.Apply(_settings.Theme, this);
     }
 
     // ---------- Options panel (Custom tab) ----------
@@ -186,6 +194,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
             ModeDescriptionText.Text = preset.Description.Length > 0 ? preset.Description
                 : preset.IsBuiltIn ? "" : "Your saved profile.";
             ProfileActions.Visibility = preset.IsBuiltIn ? Visibility.Collapsed : Visibility.Visible;
+            DeleteModeButton.Visibility = ProfileActions.Visibility;
             RenameBox.Text = "";
 
             _settings.LastMode = preset.DisplayName;
@@ -196,6 +205,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
             ModeNameText.Text = "";
             ModeDescriptionText.Text = "";
             ProfileActions.Visibility = Visibility.Collapsed;
+            DeleteModeButton.Visibility = Visibility.Collapsed;
         }
         UpdateButtons();
     }
@@ -279,6 +289,11 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         RefreshPresets(null);
     }
 
+    private void SettingsButton_Click(object sender, RoutedEventArgs e)
+    {
+        new SettingsWindow(_settings, this) { Owner = this }.ShowDialog();
+    }
+
     // ---------- Build state ----------
 
     // Seed plus every option's final value, in a fixed order. Two builds with the same fingerprint are identical.
@@ -315,10 +330,10 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         {
             StatusText.Text = customReady
                 ? $"Ready to launch (seed {SeedBox.Text.Trim()})."
-                : "Click Randomize to build the mod with the current seed and options.";
+                : "Click Assemble to build the mod with the current seed and options.";
             ModeStatusText.Text = modeReady
                 ? $"Ready to launch (seed {ModeSeedBox.Text.Trim()})."
-                : "Click Randomize to build this mode.";
+                : "Click Assemble to build this mode.";
         }
     }
 
@@ -340,7 +355,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
         _busy = true;
         UpdateButtons();
-        statusText.Text = "Randomizing...";
+        statusText.Text = "Assembling...";
 
         BuildResult? result = null;
         string? error = null;
@@ -362,7 +377,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         UpdateButtons();
         if (error != null)
         {
-            statusText.Text = $"Randomizing failed: {error}";
+            statusText.Text = $"Assembling failed: {error}";
         }
         return result;
     }
@@ -411,40 +426,5 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         {
             status.Text = $"Launch failed: {ex.Message}";
         }
-    }
-
-    // ---------- Theme ----------
-
-    private void SetUpTheme()
-    {
-        ThemeBox.SelectedIndex = _settings.Theme switch { "Light" => 1, "Dark" => 2, _ => 0 };
-        ApplyTheme(_settings.Theme);
-
-        ThemeBox.SelectionChanged += (_, _) =>
-        {
-            _settings.Theme = ((ComboBoxItem)ThemeBox.SelectedItem).Content.ToString()!;
-            SettingsService.Save(_settings);
-            ApplyTheme(_settings.Theme);
-        };
-    }
-
-    private void ApplyTheme(string theme)
-    {
-        if (theme == "System")
-        {
-            // Apply the current Windows setting now, then keep following it
-            SystemThemeWatcher.Watch(this);
-            ApplicationThemeManager.ApplySystemTheme();
-            _watchingSystemTheme = true;
-            return;
-        }
-
-        if (_watchingSystemTheme)
-        {
-            SystemThemeWatcher.UnWatch(this);
-            _watchingSystemTheme = false;
-        }
-
-        ApplicationThemeManager.Apply(theme == "Dark" ? ApplicationTheme.Dark : ApplicationTheme.Light);
     }
 }

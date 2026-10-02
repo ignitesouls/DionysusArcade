@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="Dionysus.App.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <!-- Every link on this page: accent colour, opens in the browser -->
+        <Style TargetType="Hyperlink">
+            <Setter Property="Foreground" Value="{DynamicResource AccentTextFillColorPrimaryBrush}"/>
+            <EventSetter Event="RequestNavigate" Handler="Link_RequestNavigate"/>
+        </Style>
+        <Style x:Key="Heading" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,28,0,4"/>
+        </Style>
+        <Style x:Key="CreditName" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,12,0,2"/>
+        </Style>
+        <Style x:Key="Body" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Opacity" Value="0.85"/>
+            <Setter Property="LineHeight" Value="22"/>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="16,8,16,24">
+
+            <!-- Header -->
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Assets/dionysus_256.png" Width="64" Height="64" Margin="0,0,16,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Dionysus Arcade" FontSize="24" FontWeight="SemiBold"/>
+                    <TextBlock Text="Version 0.3" Opacity="0.7"/>
+                </StackPanel>
+            </StackPanel>
+
+            <TextBlock Style="{StaticResource Body}" Margin="0,16,0,0">
+                Dionysus Arcade is an Elden Ring modding app for playing a growing collection of game modes,
+                each one infinitely customizable. It began as an offshoot of the Athena Randomizer, built to host
+                the Cluedo, Battleship and Legacy-Locked game modes. The vision for Dionysus soon grew far beyond
+                that, so the app was rebuilt from the ground up. Athena and Dionysus are both the combined work of
+                Team Ignite's community leaders.
+            </TextBlock>
+
+            <TextBlock Style="{StaticResource Body}" Margin="0,12,0,0">
+                Dionysus Arcade is free software, licensed under the
+                <Hyperlink NavigateUri="https://www.gnu.org/licenses/gpl-3.0-standalone.html">GNU General Public License v3.0</Hyperlink>.
+            </TextBlock>
+
+            <!-- Major contributors -->
+            <TextBlock Style="{StaticResource Heading}" Text="Major contributors"/>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://discord.gg/ignitesouls">Ignite Discord</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">
+                What made this mod possible, brought to you by the Ignite community. Join Ignite to play these
+                modes with others and for fun community events!
+            </TextBlock>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/lazyhelios">LazyHelios</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator and maintainer of Dionysus Arcade.</TextBlock>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/kcbrazos">KC_Brazos</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">
+                Creator of the Cluedo and Battleship modes and their websites:
+                <Hyperlink NavigateUri="https://kcbrazos.github.io/Elden-Cluedo/#/">Elden Cluedo</Hyperlink> and
+                <Hyperlink NavigateUri="https://kcbrazos.github.io/Elden-Battleship/">Elden Battleship</Hyperlink>.
+            </TextBlock>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/psiphicode">Psiphicode</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">
+                Original creator, longtime maintainer and the genius behind the Athena Randomizer, much of whose
+                code lives on in Dionysus. Also the creator of the Ignite er_overlay.
+            </TextBlock>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/itsshura">ItsShura</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator of VCC, which the Battleship and Cluedo modes are based on.</TextBlock>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/azdomiel">Azdomiel</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator of Legacy-Locked Bingo.</TextBlock>
+
+            <!-- Athena contributors -->
+            <TextBlock Style="{StaticResource Heading}" Text="Athena Randomizer contributors"/>
+            <TextBlock Style="{StaticResource Body}">
+                Thank you to everyone who helped build the Athena Randomizer:
+            </TextBlock>
+            <TextBlock Style="{StaticResource Body}" Margin="0,6,0,0">
+                <Hyperlink NavigateUri="https://www.twitch.tv/rambler_ing">Rambler</Hyperlink> &#183;
+                <Hyperlink NavigateUri="https://www.twitch.tv/sprklmouse">Sprkl</Hyperlink> &#183;
+                <Hyperlink NavigateUri="https://www.twitch.tv/hoozher">HooZher</Hyperlink> &#183;
+                <Hyperlink NavigateUri="https://www.twitch.tv/beardandthehair">Harv</Hyperlink> &#183;
+                <Hyperlink NavigateUri="https://www.twitch.tv/nartock_">Nartock</Hyperlink> &#183;
+                <Hyperlink NavigateUri="https://www.twitch.tv/elymis">Elymis</Hyperlink> &#183;
+                <Hyperlink NavigateUri="https://www.twitch.tv/cronys02">Cronys</Hyperlink> &#183;
+                <Hyperlink NavigateUri="https://www.twitch.tv/l3m0_n">Lemon</Hyperlink> &#183;
+                <Hyperlink NavigateUri="https://www.twitch.tv/nexusupnext">Nexus</Hyperlink>
+            </TextBlock>
+
+            <!-- Community tools -->
+            <TextBlock Style="{StaticResource Heading}" Text="Built with"/>
+            <TextBlock Style="{StaticResource Body}">
+                Dionysus stands on the work of the wider FromSoftware modding community. Thank you to everyone
+                who has contributed to these projects:
+            </TextBlock>
+            <TextBlock Style="{StaticResource Body}" Margin="0,6,0,0">
+                <Hyperlink NavigateUri="https://github.com/garyttierney/me3">Mod Engine 3</Hyperlink>: Loads Dionysus's changes into the game<LineBreak/>
+                <Hyperlink NavigateUri="https://github.com/soulsmods/SoulsFormatsNEXT">SoulsFormats</Hyperlink>: Reads and Writes FromSoftware's File Formats<LineBreak/>
+                <Hyperlink NavigateUri="https://github.com/vawser/Smithbox">Smithbox</Hyperlink>: Param, Text and Map editing<LineBreak/>
+                <Hyperlink NavigateUri="https://github.com/AinTunez/DarkScript3">DarkScript3</Hyperlink>: Event Script editing<LineBreak/>
+                <Hyperlink NavigateUri="https://github.com/GompDS/ESDStudio">ESDStudio</Hyperlink>: Talk Script Editing<LineBreak/>
+                <Hyperlink NavigateUri="https://github.com/lepoco/wpfui">WPF UI</Hyperlink>: Look and Feel of this App
+            </TextBlock>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

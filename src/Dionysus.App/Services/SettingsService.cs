@@ -12,6 +12,8 @@ public sealed class AppSettings
     public string Theme { get; set; } = "System";
 
     public string? LastMode { get; set; }
+
+    public string BattleshipToken { get; set; } = "";
 }
 
 public static class SettingsService

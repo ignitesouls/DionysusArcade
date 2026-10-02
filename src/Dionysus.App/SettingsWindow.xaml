@@ -1,0 +1,55 @@
+﻿<ui:FluentWindow x:Class="Dionysus.App.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:local="clr-namespace:Dionysus.App"
+        Title="Settings" Height="640" Width="680" MinHeight="420" MinWidth="520"
+        WindowStartupLocation="CenterOwner"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+        WindowCornerPreference="Round"
+        Icon="/Assets/dionysus.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0" Title="Settings"/>
+
+        <TabControl Grid.Row="1" Margin="12,4,12,12">
+
+            <TabItem Header="Settings">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="16,8,16,16">
+
+                        <TextBlock Text="Appearance" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <TextBlock Text="Theme" Margin="0,0,0,6"/>
+                        <ComboBox x:Name="ThemeBox" Width="200" HorizontalAlignment="Left">
+                            <ComboBoxItem Content="System"/>
+                            <ComboBoxItem Content="Light"/>
+                            <ComboBoxItem Content="Dark"/>
+                        </ComboBox>
+
+                        <TextBlock Text="Battleship" FontSize="18" FontWeight="SemiBold" Margin="0,28,0,8"/>
+                        <TextBlock Text="Battleship token" Margin="0,0,0,6"/>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:TextBox x:Name="TokenBox" Width="380" PlaceholderText="Paste your Battleship token"/>
+                            <ui:Button Content="Save" Margin="8,0,0,0" Click="SaveTokenButton_Click"/>
+                        </StackPanel>
+                        <TextBlock Opacity="0.7" TextWrapping="Wrap" Margin="0,6,0,0"
+                                   Text="Connects the in-game overlay to the Battleship website. Takes effect the next time you launch Elden Ring."/>
+                        <TextBlock x:Name="TokenStatusText" Margin="0,6,0,0" TextWrapping="Wrap"/>
+
+                        <!-- Torrent skins will go here in the next release -->
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="About">
+                <local:AboutView/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</ui:FluentWindow>

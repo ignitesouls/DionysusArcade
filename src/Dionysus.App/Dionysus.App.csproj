@@ -29,4 +29,8 @@
 		<Resource Include="Assets\**" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Resources\Modes\" />
+	</ItemGroup>
+
 </Project>

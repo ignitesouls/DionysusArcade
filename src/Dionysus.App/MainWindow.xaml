@@ -36,6 +36,11 @@
             <TabItem Header="Custom">
                 <DockPanel Margin="16">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
+                        <TextBlock Text="Start from:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <ComboBox x:Name="PresetBox" Width="260" DisplayMemberPath="DisplayName"/>
+                        <ui:Button Content="Load" Margin="8,0,0,0" Click="LoadPresetButton_Click"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
                         <TextBlock Text="Seed:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <ui:TextBox x:Name="SeedBox" Width="200" PlaceholderText="Empty for random"/>
                         <ui:Button x:Name="RandomizeButton" Content="Randomize" Appearance="Primary"

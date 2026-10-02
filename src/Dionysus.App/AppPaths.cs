@@ -10,4 +10,11 @@ public static class AppPaths
     public static string AppFolder { get; } = Path.GetDirectoryName(Environment.ProcessPath)!;
 
     public static string ResourcesRoot { get; } = Path.Combine(AppFolder, "Resources");
+
+
+    // The player's own data, outside the app folder so it survives updates
+    public static string DataFolder { get; } = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DionysusArcade");
+
+    public static string ProfilesFolder { get; } = Path.Combine(DataFolder, "Profiles");
 }

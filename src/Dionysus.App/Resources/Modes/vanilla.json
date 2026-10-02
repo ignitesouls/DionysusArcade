@@ -1,0 +1,6 @@
+{
+    "name": "Vanilla",
+    "description": "The unmodified game, launched through Mod Engine 3. A clean starting point for custom setups.",
+    "order": 90,
+    "options": {}
+}

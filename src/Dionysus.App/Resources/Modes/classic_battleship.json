@@ -1,0 +1,27 @@
+{
+    "name": "Classic Battleship",
+    "description": "Battleship with Incursion: randomized starting classes, graces and item placements.",
+    "order": 10,
+    "options": {
+        "me3.stutter_fix": true,
+        "me3.crash_fix": true,
+        "me3.overlay": true,
+        "patches.battleship_base": true,
+        "graces.enabled": true,
+        "starting_classes.enabled": true,
+        "starting_classes.stat_mode": "Vigor 20, other stats total 80",
+        "starting_classes.caster_kits": true,
+        "starting_classes.starting_runes": 10000,
+        "item_shuffle.spells": true,
+        "item_shuffle.chance_weapons": true,
+        "item_shuffle.map_weapons": true,
+        "item_shuffle.remembrances": true,
+        "item_shuffle.shop_weapons": true,
+        "item_shuffle.perfume_bottles": true,
+        "tweaks.remove_roundtable_fist_check": true,
+        "tweaks.seluvis_scorpion_charm": true,
+        "tweaks.lock_serpent_hunter": true,
+        "talisman_shop.enabled": true,
+        "incursion.enabled": true
+    }
+}

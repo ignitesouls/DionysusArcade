@@ -13,7 +13,7 @@ public sealed class PatchModule : IModule
 
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
-        new BoolOption("patches.battleship_base", "Battleship base changes", true,
+        new BoolOption("patches.battleship_base", "Battleship base changes", false,
             "The param and text changes that used to be baked into the Battleship regulation and menu files.")
     };
 

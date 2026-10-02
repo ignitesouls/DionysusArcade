@@ -14,16 +14,16 @@ public sealed class ItemShuffleModule : IModule
 
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
-        new BoolOption("item_shuffle.spells", "Shuffle spells", true,
+        new BoolOption("item_shuffle.spells", "Shuffle spells", false,
             "Sorceries and incantations, shuffled within their groups."),
-        new BoolOption("item_shuffle.chance_weapons", "Shuffle chance weapon drops", true,
+        new BoolOption("item_shuffle.chance_weapons", "Shuffle chance weapon drops", false,
             "Chance-based enemy weapon drops, shuffled within weapon classes."),
-        new BoolOption("item_shuffle.map_weapons", "Shuffle map and guaranteed weapons", true,
+        new BoolOption("item_shuffle.map_weapons", "Shuffle map and guaranteed weapons", false,
             "Weapons found in the world and guaranteed drops, shuffled within weapon classes."),
-        new BoolOption("item_shuffle.remembrances", "Shuffle remembrance rewards", true,
+        new BoolOption("item_shuffle.remembrances", "Shuffle remembrance rewards", false,
             "Weapons, sorceries and incantations traded for remembrances."),
-        new BoolOption("item_shuffle.shop_weapons", "Shuffle shop weapons", true),
-        new BoolOption("item_shuffle.perfume_bottles", "Shuffle perfume bottles", true),
+        new BoolOption("item_shuffle.shop_weapons", "Shuffle shop weapons", false),
+        new BoolOption("item_shuffle.perfume_bottles", "Shuffle perfume bottles", false),
     };
 
     // Active if at least one shuffle is turned on

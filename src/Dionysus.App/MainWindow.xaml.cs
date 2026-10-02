@@ -8,6 +8,7 @@ using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
 using Dionysus.Core.Pipeline;
 using Wpf.Ui.Appearance;
+using Dionysus.Core.Presets;
 
 namespace Dionysus.App;
 
@@ -20,6 +21,11 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     // For each option key, a function that reads the current value from its control
     private readonly Dictionary<string, Func<object?>> _optionReaders = new();
 
+    // For each option key, a function that puts a value into its control
+    private readonly Dictionary<string, Action<object>> _optionWriters = new();
+
+    private List<Preset> _presets = new();
+
     private bool _buildIsCurrent;
     private bool _busy;
     private bool _suppressChanges;
@@ -29,6 +35,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         InitializeComponent();
 
         BuildOptionsPanel();
+        LoadPresetList();
         SeedBox.Text = _settings.LastBuiltSeed?.ToString() ?? "";
         SeedBox.TextChanged += (_, _) => MarkChanged();
 
@@ -80,6 +87,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
                     box.Checked += (_, _) => MarkChanged();
                     box.Unchecked += (_, _) => MarkChanged();
                     _optionReaders[option.Key] = () => box.IsChecked == true;
+                    _optionWriters[option.Key] = v => box.IsChecked = (bool)v;
                     return box;
                 }
             case IntOption:
@@ -87,6 +95,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
                     var box = new TextBox { Text = value.ToString(), Width = 120 };
                     box.TextChanged += (_, _) => MarkChanged();
                     _optionReaders[option.Key] = () => int.TryParse(box.Text, out int n) ? n : (object?)null;
+                    _optionWriters[option.Key] = v => box.Text = v.ToString();
                     return Labeled(option, box);
                 }
             case ChoiceOption choice:
@@ -94,6 +103,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
                     var combo = new ComboBox { ItemsSource = choice.Choices, SelectedItem = value, Width = 260 };
                     combo.SelectionChanged += (_, _) => MarkChanged();
                     _optionReaders[option.Key] = () => combo.SelectedItem as string;
+                    _optionWriters[option.Key] = v => combo.SelectedItem = v;
                     return Labeled(option, combo);
                 }
             default:
@@ -116,6 +126,39 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
     private static object? Tip(OptionDefinition option) =>
         string.IsNullOrEmpty(option.Description) ? null : option.Description;
+
+
+    // ---------- Presets ----------
+
+    private void LoadPresetList()
+    {
+        _presets = PresetStore.LoadBuiltIn(ResourcesRoot)
+            .Concat(PresetStore.LoadProfiles(AppPaths.ProfilesFolder))
+            .ToList();
+        PresetBox.ItemsSource = _presets;
+        PresetBox.SelectedIndex = _presets.Count > 0 ? 0 : -1;
+    }
+
+    // Puts a full set of option values into the controls. Anything not listed gets its default.
+    private void ApplyOptions(IReadOnlyDictionary<string, object?> values)
+    {
+        var resolved = new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), values);
+        foreach (var (key, value) in resolved.Values)
+        {
+            if (_optionWriters.TryGetValue(key, out Action<object>? write))
+            {
+                write(value);
+            }
+        }
+    }
+
+    private void LoadPresetButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (PresetBox.SelectedItem is Preset preset)
+        {
+            ApplyOptions(preset.Options);
+        }
+    }
 
     // ---------- State ----------
 

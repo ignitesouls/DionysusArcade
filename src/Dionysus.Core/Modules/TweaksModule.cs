@@ -12,11 +12,11 @@ public sealed class TweaksModule : IModule
 
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
-        new BoolOption("tweaks.remove_roundtable_fist_check", "Remove Roundtable fist check", true,
+        new BoolOption("tweaks.remove_roundtable_fist_check", "Remove Roundtable fist check", false,
             "Removes the Cipher Pata pickup in Roundtable Hold."),
-        new BoolOption("tweaks.seluvis_scorpion_charm", "Magic Scorpion Charm at Seluvis", true,
+        new BoolOption("tweaks.seluvis_scorpion_charm", "Magic Scorpion Charm at Seluvis", false,
             "Replaces Pidia's Old Fang in Seluvis's shop with the Magic Scorpion Charm."),
-        new BoolOption("tweaks.lock_serpent_hunter", "Serpent Hunter can't be upgraded", true,
+        new BoolOption("tweaks.lock_serpent_hunter", "Serpent Hunter can't be upgraded", false,
             "Makes the Serpent Hunter a non-upgradable weapon."),
     };
 

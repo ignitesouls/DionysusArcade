@@ -12,7 +12,7 @@ public sealed class StartingGracesModule : IModule
 
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
-        new BoolOption("graces.enabled", "Randomize starting graces", true,
+        new BoolOption("graces.enabled", "Randomize starting graces", false,
             "Unlocks a random grace from each regional pool at the start of the game.")
     };
 

@@ -11,7 +11,7 @@ public sealed class IncursionPackModule : IModule
 
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
-        new BoolOption("incursion.enabled", "Include Incursion files", true,
+        new BoolOption("incursion.enabled", "Include Incursion files", false,
             "Copies the prebuilt Incursion map and event files into the mod package.")
     };
 

@@ -21,7 +21,7 @@ public sealed class StartingClassesModule : IModule
 
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
-        new BoolOption("starting_classes.enabled", "Randomize starting classes", true,
+        new BoolOption("starting_classes.enabled", "Randomize starting classes", false,
             "Gives every class random stats, armor and weapons."),
         new ChoiceOption("starting_classes.stat_mode", "Stat spread", StatModeVigor20,
             new[] { StatModeVigor20, StatModeTotal88 }),

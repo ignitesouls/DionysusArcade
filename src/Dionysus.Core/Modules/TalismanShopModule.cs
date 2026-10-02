@@ -13,7 +13,7 @@ public sealed class TalismanShopModule : IModule
 
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
-        new BoolOption("talisman_shop.enabled", "Talisman shop", true,
+        new BoolOption("talisman_shop.enabled", "Talisman shop", false,
             "Adds a shop selling the talismans listed in shop_talismans.csv.")
     };
 

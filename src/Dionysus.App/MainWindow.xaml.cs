@@ -160,6 +160,33 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         }
     }
 
+    private void SaveProfileButton_Click(object sender, RoutedEventArgs e)
+    {
+        string name = ProfileNameBox.Text.Trim();
+        if (name.Length == 0)
+        {
+            StatusText.Text = "Type a name for the profile first.";
+            return;
+        }
+
+        // Saving under an existing profile's name replaces it, so ask first
+        bool exists = _presets.Any(p => !p.IsBuiltIn && string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
+        if (exists && MessageBox.Show($"A profile called \"{name}\" already exists. Replace it?", "Dionysus Arcade",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        // Profiles save the current settings only, never the seed
+        Dictionary<string, object?> options = _optionReaders.ToDictionary(kv => kv.Key, kv => kv.Value());
+        Preset saved = PresetStore.SaveProfile(AppPaths.ProfilesFolder, name, options);
+
+        LoadPresetList();
+        PresetBox.SelectedItem = _presets.FirstOrDefault(p => p.FilePath == saved.FilePath);
+        ProfileNameBox.Text = "";
+        StatusText.Text = $"Saved profile \"{name}\".";
+    }
+
     // ---------- State ----------
 
     private void MarkChanged()

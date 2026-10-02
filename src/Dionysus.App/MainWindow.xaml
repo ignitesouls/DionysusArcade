@@ -22,13 +22,13 @@
 
         <TabControl Grid.Row="1" Margin="12,4,12,12">
 
-            <!-- Quick Play: modes arrive in Step 19 -->
-            <TabItem Header="Quick Play">
+            <!-- Modes are coming soon -->
+            <TabItem Header="Modes">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="/Assets/dionysus_256.png" Width="160" Height="160"/>
                     <TextBlock Text="Dionysus Arcade" FontSize="28" FontWeight="SemiBold"
                                HorizontalAlignment="Center" Margin="0,12,0,4"/>
-                    <TextBlock Text="Quick Play modes are coming soon." HorizontalAlignment="Center" Opacity="0.7"/>
+                    <TextBlock Text="Modes are coming soon." HorizontalAlignment="Center" Opacity="0.7"/>
                 </StackPanel>
             </TabItem>
 
@@ -39,6 +39,11 @@
                         <TextBlock Text="Start from:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <ComboBox x:Name="PresetBox" Width="260" DisplayMemberPath="DisplayName"/>
                         <ui:Button Content="Load" Margin="8,0,0,0" Click="LoadPresetButton_Click"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
+                        <TextBlock Text="Save as profile:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <ui:TextBox x:Name="ProfileNameBox" Width="260" PlaceholderText="Profile name"/>
+                        <ui:Button Content="Save" Margin="8,0,0,0" Click="SaveProfileButton_Click"/>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
                         <TextBlock Text="Seed:" VerticalAlignment="Center" Margin="0,0,8,0"/>

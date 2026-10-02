@@ -20,19 +20,50 @@
             </ui:TitleBar.Icon>
         </ui:TitleBar>
 
-        <TabControl Grid.Row="1" Margin="12,4,12,12">
+        <TabControl x:Name="Tabs" Grid.Row="1" Margin="12,4,12,12">
 
-            <!-- Modes are coming soon -->
+            <!-- Modes: built-in modes and saved profiles, one click away -->
             <TabItem Header="Modes">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Source="/Assets/dionysus_256.png" Width="160" Height="160"/>
-                    <TextBlock Text="Dionysus Arcade" FontSize="28" FontWeight="SemiBold"
-                               HorizontalAlignment="Center" Margin="0,12,0,4"/>
-                    <TextBlock Text="Modes are coming soon." HorizontalAlignment="Center" Opacity="0.7"/>
-                </StackPanel>
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DockPanel Grid.Column="0" Margin="0,0,16,0">
+                        <Image DockPanel.Dock="Top" Source="/Assets/dionysus_256.png" Width="96" Height="96" Margin="0,0,0,12"/>
+                        <ListBox x:Name="ModeList" DisplayMemberPath="DisplayName"/>
+                    </DockPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock x:Name="ModeNameText" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="ModeDescriptionText" TextWrapping="Wrap" Opacity="0.8" Margin="0,0,0,16"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <TextBlock Text="Seed:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <ui:TextBox x:Name="ModeSeedBox" Width="200" PlaceholderText="Empty for random"/>
+                            <ui:Button x:Name="ModeRandomizeButton" Content="Randomize" Appearance="Primary"
+                                       Margin="12,0,0,0" Click="ModeRandomizeButton_Click"/>
+                            <ui:Button x:Name="ModeLaunchButton" Content="Launch Elden Ring"
+                                       Margin="8,0,0,0" Click="LaunchButton_Click"/>
+                        </StackPanel>
+
+                        <TextBlock x:Name="ModeStatusText" TextWrapping="Wrap" Margin="0,0,0,8"/>
+                        <TextBlock x:Name="ModeReportText" TextWrapping="Wrap" Margin="0,0,0,16"/>
+
+                        <ui:Button Content="Customize this mode" Click="CustomizeButton_Click" Margin="0,0,0,12"/>
+
+                        <!-- Only shown when a profile is selected -->
+                        <StackPanel x:Name="ProfileActions" Orientation="Horizontal" Visibility="Collapsed">
+                            <ui:TextBox x:Name="RenameBox" Width="200" PlaceholderText="New name"/>
+                            <ui:Button Content="Rename" Margin="8,0,0,0" Click="RenameProfileButton_Click"/>
+                            <ui:Button Content="Delete" Margin="8,0,0,0" Click="DeleteProfileButton_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </TabItem>
 
-            <!-- Custom: the current build screen, extended in Step 20 -->
+            <!-- Custom: change anything, build directly, or save as a profile -->
             <TabItem Header="Custom">
                 <DockPanel Margin="16">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
@@ -40,11 +71,13 @@
                         <ComboBox x:Name="PresetBox" Width="260" DisplayMemberPath="DisplayName"/>
                         <ui:Button Content="Load" Margin="8,0,0,0" Click="LoadPresetButton_Click"/>
                     </StackPanel>
+
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
                         <TextBlock Text="Save as profile:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <ui:TextBox x:Name="ProfileNameBox" Width="260" PlaceholderText="Profile name"/>
                         <ui:Button Content="Save" Margin="8,0,0,0" Click="SaveProfileButton_Click"/>
                     </StackPanel>
+
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
                         <TextBlock Text="Seed:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <ui:TextBox x:Name="SeedBox" Width="200" PlaceholderText="Empty for random"/>

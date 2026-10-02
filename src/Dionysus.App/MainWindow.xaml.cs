@@ -1,14 +1,15 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
 using System.Diagnostics;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using Dionysus.App.Services;
 using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
 using Dionysus.Core.Pipeline;
-using Wpf.Ui.Appearance;
 using Dionysus.Core.Presets;
+using Wpf.Ui.Appearance;
 
 namespace Dionysus.App;
 
@@ -18,17 +19,16 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
     private readonly AppSettings _settings = SettingsService.Load();
 
-    // For each option key, a function that reads the current value from its control
+    // For each option key: a function that reads its control's value, and one that sets it
     private readonly Dictionary<string, Func<object?>> _optionReaders = new();
-
-    // For each option key, a function that puts a value into its control
     private readonly Dictionary<string, Action<object>> _optionWriters = new();
 
     private List<Preset> _presets = new();
 
-    private bool _buildIsCurrent;
+    // Fingerprint (seed + every option value) of the package on disk, or null if there isn't a usable one
+    private string? _lastBuildFingerprint;
     private bool _busy;
-    private bool _suppressChanges;
+    private bool _watchingSystemTheme;
 
     public MainWindow()
     {
@@ -36,17 +36,28 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
         BuildOptionsPanel();
         LoadPresetList();
-        SeedBox.Text = _settings.LastBuiltSeed?.ToString() ?? "";
-        SeedBox.TextChanged += (_, _) => MarkChanged();
 
-        // If there was a previous build, the package on disk matches the restored seed and options
-        _buildIsCurrent = _settings.LastBuiltSeed != null && File.Exists(Path.Combine(ResourcesRoot, BuildPipeline.Me3Folder, BuildPipeline.ProfileFile));
-        UpdateButtons();
+        // Restore the last build, as long as its package is still on disk
+        if (_settings.LastBuiltSeed is int seed
+            && File.Exists(Path.Combine(ResourcesRoot, BuildPipeline.Me3Folder, BuildPipeline.ProfileFile)))
+        {
+            _lastBuildFingerprint = Fingerprint(seed, _settings.LastBuiltOptions);
+            SeedBox.Text = seed.ToString();
+            ModeSeedBox.Text = seed.ToString();
+        }
+
+        SeedBox.TextChanged += (_, _) => UpdateButtons();
+        ModeSeedBox.TextChanged += (_, _) => UpdateButtons();
+        ModeList.SelectionChanged += (_, _) => ShowSelectedMode();
+
+        // Reselect the mode or profile used last time
+        ModeList.SelectedItem = _presets.FirstOrDefault(p => p.DisplayName == _settings.LastMode) ?? _presets.FirstOrDefault();
+        ShowSelectedMode();
 
         SetUpTheme();
     }
 
-    // ---------- Options panel ----------
+    // ---------- Options panel (Custom tab) ----------
 
     private void BuildOptionsPanel()
     {
@@ -127,17 +138,8 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     private static object? Tip(OptionDefinition option) =>
         string.IsNullOrEmpty(option.Description) ? null : option.Description;
 
-
-    // ---------- Presets ----------
-
-    private void LoadPresetList()
-    {
-        _presets = PresetStore.LoadBuiltIn(ResourcesRoot)
-            .Concat(PresetStore.LoadProfiles(AppPaths.ProfilesFolder))
-            .ToList();
-        PresetBox.ItemsSource = _presets;
-        PresetBox.SelectedIndex = _presets.Count > 0 ? 0 : -1;
-    }
+    private Dictionary<string, object?> CurrentCustomOptions() =>
+        _optionReaders.ToDictionary(kv => kv.Key, kv => kv.Value());
 
     // Puts a full set of option values into the controls. Anything not listed gets its default.
     private void ApplyOptions(IReadOnlyDictionary<string, object?> values)
@@ -152,11 +154,67 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         }
     }
 
+    // ---------- Modes and profiles ----------
+
+    private void LoadPresetList()
+    {
+        _presets = PresetStore.LoadBuiltIn(ResourcesRoot)
+            .Concat(PresetStore.LoadProfiles(AppPaths.ProfilesFolder))
+            .ToList();
+        PresetBox.ItemsSource = _presets;
+        PresetBox.SelectedIndex = _presets.Count > 0 ? 0 : -1;
+        ModeList.ItemsSource = _presets;
+    }
+
+    // Reloads modes and profiles, then selects the one stored at selectPath (or the first, if none)
+    private void RefreshPresets(string? selectPath)
+    {
+        LoadPresetList();
+        Preset? select = _presets.FirstOrDefault(p => string.Equals(p.FilePath, selectPath, StringComparison.OrdinalIgnoreCase));
+        ModeList.SelectedItem = select ?? _presets.FirstOrDefault();
+        if (select != null)
+        {
+            PresetBox.SelectedItem = select;
+        }
+    }
+
+    private void ShowSelectedMode()
+    {
+        if (ModeList.SelectedItem is Preset preset)
+        {
+            ModeNameText.Text = preset.Name;
+            ModeDescriptionText.Text = preset.Description.Length > 0 ? preset.Description
+                : preset.IsBuiltIn ? "" : "Your saved profile.";
+            ProfileActions.Visibility = preset.IsBuiltIn ? Visibility.Collapsed : Visibility.Visible;
+            RenameBox.Text = "";
+
+            _settings.LastMode = preset.DisplayName;
+            SettingsService.Save(_settings);
+        }
+        else
+        {
+            ModeNameText.Text = "";
+            ModeDescriptionText.Text = "";
+            ProfileActions.Visibility = Visibility.Collapsed;
+        }
+        UpdateButtons();
+    }
+
     private void LoadPresetButton_Click(object sender, RoutedEventArgs e)
     {
         if (PresetBox.SelectedItem is Preset preset)
         {
             ApplyOptions(preset.Options);
+        }
+    }
+
+    private void CustomizeButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (ModeList.SelectedItem is Preset preset)
+        {
+            ApplyOptions(preset.Options);
+            PresetBox.SelectedItem = preset;
+            Tabs.SelectedIndex = 1; // the Custom tab
         }
     }
 
@@ -178,42 +236,184 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         }
 
         // Profiles save the current settings only, never the seed
-        Dictionary<string, object?> options = _optionReaders.ToDictionary(kv => kv.Key, kv => kv.Value());
-        Preset saved = PresetStore.SaveProfile(AppPaths.ProfilesFolder, name, options);
-
-        LoadPresetList();
-        PresetBox.SelectedItem = _presets.FirstOrDefault(p => p.FilePath == saved.FilePath);
+        Preset saved = PresetStore.SaveProfile(AppPaths.ProfilesFolder, name, CurrentCustomOptions());
+        RefreshPresets(saved.FilePath);
         ProfileNameBox.Text = "";
         StatusText.Text = $"Saved profile \"{name}\".";
     }
 
-    // ---------- State ----------
-
-    private void MarkChanged()
+    private void RenameProfileButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_suppressChanges) return;
-        _buildIsCurrent = false;
-        UpdateButtons();
+        if (ModeList.SelectedItem is not Preset profile || profile.IsBuiltIn) return;
+
+        string newName = RenameBox.Text.Trim();
+        if (newName.Length == 0)
+        {
+            ModeStatusText.Text = "Type the new name first.";
+            return;
+        }
+
+        bool taken = _presets.Any(p => !p.IsBuiltIn && p != profile
+            && string.Equals(p.Name, newName, StringComparison.OrdinalIgnoreCase));
+        if (taken && MessageBox.Show($"A profile called \"{newName}\" already exists. Replace it?", "Dionysus Arcade",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        Preset renamed = PresetStore.RenameProfile(AppPaths.ProfilesFolder, profile, newName);
+        RefreshPresets(renamed.FilePath);
     }
+
+    private void DeleteProfileButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (ModeList.SelectedItem is not Preset profile || profile.IsBuiltIn) return;
+
+        if (MessageBox.Show($"Delete the profile \"{profile.Name}\"?", "Dionysus Arcade",
+                MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        PresetStore.DeleteProfile(profile);
+        RefreshPresets(null);
+    }
+
+    // ---------- Build state ----------
+
+    // Seed plus every option's final value, in a fixed order. Two builds with the same fingerprint are identical.
+    private static string Fingerprint(int seed, IReadOnlyDictionary<string, object?> options)
+    {
+        var resolved = new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), options);
+        var sorted = resolved.Values.OrderBy(kv => kv.Key, StringComparer.Ordinal).ToDictionary(kv => kv.Key, kv => kv.Value);
+        return seed + "|" + JsonSerializer.Serialize(sorted);
+    }
+
+    // Is the package on disk exactly the build for this seed and these options?
+    private bool IsBuilt(string seedText, IReadOnlyDictionary<string, object?> options) =>
+        _lastBuildFingerprint != null
+        && int.TryParse(seedText.Trim(), out int seed)
+        && Fingerprint(seed, options) == _lastBuildFingerprint;
+
+    private void MarkChanged() => UpdateButtons();
 
     private void UpdateButtons()
     {
         RandomizeButton.IsEnabled = !_busy;
-        LaunchButton.IsEnabled = !_busy && _buildIsCurrent;
+        ModeRandomizeButton.IsEnabled = !_busy && ModeList.SelectedItem is Preset;
         SeedBox.IsEnabled = !_busy;
+        ModeSeedBox.IsEnabled = !_busy;
         OptionsPanel.IsEnabled = !_busy;
+        ModeList.IsEnabled = !_busy;
+
+        bool customReady = !_busy && IsBuilt(SeedBox.Text, CurrentCustomOptions());
+        bool modeReady = !_busy && ModeList.SelectedItem is Preset preset && IsBuilt(ModeSeedBox.Text, preset.Options);
+        LaunchButton.IsEnabled = customReady;
+        ModeLaunchButton.IsEnabled = modeReady;
 
         if (!_busy)
         {
-            StatusText.Text = _buildIsCurrent
-                ? $"Ready to launch (seed {_settings.LastBuiltSeed})."
+            StatusText.Text = customReady
+                ? $"Ready to launch (seed {SeedBox.Text.Trim()})."
                 : "Click Randomize to build the mod with the current seed and options.";
+            ModeStatusText.Text = modeReady
+                ? $"Ready to launch (seed {ModeSeedBox.Text.Trim()})."
+                : "Click Randomize to build this mode.";
+        }
+    }
+
+    // ---------- Building and launching ----------
+
+    // Runs a build in the background. Returns the result, or null if it failed (the error appears in statusText).
+    private async Task<BuildResult?> RunBuild(string seedText, IReadOnlyDictionary<string, object?> options, TextBlock statusText)
+    {
+        int? seed = null;
+        if (seedText.Trim().Length > 0)
+        {
+            if (!int.TryParse(seedText.Trim(), out int parsed))
+            {
+                statusText.Text = "The seed must be a whole number, or empty for a random seed.";
+                return null;
+            }
+            seed = parsed;
+        }
+
+        _busy = true;
+        UpdateButtons();
+        statusText.Text = "Randomizing...";
+
+        BuildResult? result = null;
+        string? error = null;
+        try
+        {
+            result = await Task.Run(() => BuildPipeline.Run(ResourcesRoot, seed, options));
+            _settings.LastBuiltSeed = result.Seed;
+            _settings.LastBuiltOptions = options.ToDictionary(kv => kv.Key, kv => kv.Value);
+            SettingsService.Save(_settings);
+            _lastBuildFingerprint = Fingerprint(result.Seed, options);
+        }
+        catch (Exception ex)
+        {
+            _lastBuildFingerprint = null; // the package on disk may be half-written
+            error = ex.Message;
+        }
+
+        _busy = false;
+        UpdateButtons();
+        if (error != null)
+        {
+            statusText.Text = $"Randomizing failed: {error}";
+        }
+        return result;
+    }
+
+    private static string FormatReport(BuildResult result) =>
+        string.Join("\n", result.Report.Select(r => $"{r.Key}: {string.Join(" | ", r.Value)}"));
+
+    private async void RandomizeButton_Click(object sender, RoutedEventArgs e)
+    {
+        BuildResult? result = await RunBuild(SeedBox.Text, CurrentCustomOptions(), StatusText);
+        if (result != null)
+        {
+            SeedBox.Text = result.Seed.ToString();
+            ReportText.Text = FormatReport(result);
+        }
+    }
+
+    private async void ModeRandomizeButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (ModeList.SelectedItem is not Preset preset) return;
+
+        BuildResult? result = await RunBuild(ModeSeedBox.Text, preset.Options, ModeStatusText);
+        if (result != null)
+        {
+            ModeSeedBox.Text = result.Seed.ToString();
+            ModeReportText.Text = FormatReport(result);
+        }
+    }
+
+    private void LaunchButton_Click(object sender, RoutedEventArgs e)
+    {
+        TextBlock status = ReferenceEquals(sender, ModeLaunchButton) ? ModeStatusText : StatusText;
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = "/c \"launch-dionysus.bat\"",
+                WorkingDirectory = Path.Combine(ResourcesRoot, BuildPipeline.Me3Folder),
+                UseShellExecute = false,
+                CreateNoWindow = true
+            });
+            status.Text = "Launching Elden Ring...";
+        }
+        catch (Exception ex)
+        {
+            status.Text = $"Launch failed: {ex.Message}";
         }
     }
 
     // ---------- Theme ----------
-
-    private bool _watchingSystemTheme;
 
     private void SetUpTheme()
     {
@@ -246,79 +446,5 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         }
 
         ApplicationThemeManager.Apply(theme == "Dark" ? ApplicationTheme.Dark : ApplicationTheme.Light);
-    }
-
-    // ---------- Buttons ----------
-
-    private async void RandomizeButton_Click(object sender, RoutedEventArgs e)
-    {
-        string seedText = SeedBox.Text.Trim();
-        int? seed = null;
-        if (seedText.Length > 0)
-        {
-            if (!int.TryParse(seedText, out int parsed))
-            {
-                StatusText.Text = "The seed must be a whole number, or empty for a random seed.";
-                return;
-            }
-            seed = parsed;
-        }
-
-        Dictionary<string, object?> options = _optionReaders.ToDictionary(kv => kv.Key, kv => kv.Value());
-
-        _busy = true;
-        UpdateButtons();
-        StatusText.Text = "Randomizing...";
-
-        string? error = null;
-        try
-        {
-            BuildResult result = await Task.Run(() => BuildPipeline.Run(ResourcesRoot, seed, options));
-
-            _suppressChanges = true;
-            SeedBox.Text = result.Seed.ToString();
-            _suppressChanges = false;
-
-            ReportText.Text = string.Join("\n",
-                result.Report.Select(r => $"{r.Key}: {string.Join(" | ", r.Value)}"));
-
-            _settings.LastBuiltSeed = result.Seed;
-            _settings.LastBuiltOptions = options;
-            SettingsService.Save(_settings);
-            _buildIsCurrent = true;
-        }
-        catch (Exception ex)
-        {
-            _buildIsCurrent = false;
-            error = ex.Message;
-        }
-
-        _busy = false;
-        UpdateButtons();
-
-        if (error != null)
-        {
-            StatusText.Text = $"Randomizing failed: {error}";
-        }
-    }
-
-    private void LaunchButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                Arguments = "/c \"launch-dionysus.bat\"",
-                WorkingDirectory = Path.Combine(ResourcesRoot, BuildPipeline.Me3Folder),
-                UseShellExecute = false,
-                CreateNoWindow = true
-            });
-            StatusText.Text = "Launching Elden Ring...";
-        }
-        catch (Exception ex)
-        {
-            StatusText.Text = $"Launch failed: {ex.Message}";
-        }
     }
 }

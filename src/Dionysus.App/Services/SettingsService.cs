@@ -10,6 +10,8 @@ public sealed class AppSettings
     public int? LastBuiltSeed { get; set; }
     public Dictionary<string, object?> LastBuiltOptions { get; set; } = new();
     public string Theme { get; set; } = "System";
+
+    public string? LastMode { get; set; }
 }
 
 public static class SettingsService

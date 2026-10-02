@@ -43,6 +43,20 @@ public static class PresetStore
         }
     }
 
+    // Renames a profile by saving it under the new name, then removing the old file
+    public static Preset RenameProfile(string profilesFolder, Preset profile, string newName)
+    {
+        Preset renamed = SaveProfile(profilesFolder, newName, profile.Options);
+
+        // Windows file names ignore capitals, so renaming "test" to "Test" is still the same file.
+        // Deleting the "old" file in that case would delete the one just saved.
+        if (!string.Equals(renamed.FilePath, profile.FilePath, StringComparison.OrdinalIgnoreCase))
+        {
+            DeleteProfile(profile);
+        }
+        return renamed;
+    }
+
     private static List<Preset> Load(string folder, bool builtIn)
     {
         var presets = new List<Preset>();

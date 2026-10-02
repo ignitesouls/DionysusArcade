@@ -33,7 +33,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         SeedBox.TextChanged += (_, _) => MarkChanged();
 
         // If there was a previous build, the package on disk matches the restored seed and options
-        _buildIsCurrent = _settings.LastBuiltSeed != null;
+        _buildIsCurrent = _settings.LastBuiltSeed != null && File.Exists(Path.Combine(ResourcesRoot, BuildPipeline.Me3Folder, BuildPipeline.ProfileFile));
         UpdateButtons();
 
         SetUpTheme();
@@ -239,8 +239,8 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
             Process.Start(new ProcessStartInfo
             {
                 FileName = "cmd.exe",
-                Arguments = "/c \"launch-eldenring-basedlc.bat\"",
-                WorkingDirectory = Path.Combine(ResourcesRoot, "me3-v0.8.0"),
+                Arguments = "/c \"launch-dionysus.bat\"",
+                WorkingDirectory = Path.Combine(ResourcesRoot, BuildPipeline.Me3Folder),
                 UseShellExecute = false,
                 CreateNoWindow = true
             });

@@ -34,7 +34,7 @@ public sealed class ItemShuffleModule : IModule
         ParamsEditor editor = context.Params;
         var urr = context.Randomizer;
         OptionSet o = context.Options;
-        string groups = context.Resource("RandomizationGroups", "battleship");
+        string groups = context.Resource("Data", "ItemShuffle");
 
         // Look up where every item is placed, once, before anything is shuffled
         var weaponIdsToItemLotMap = editor.GetWeaponIdsToItemLotMap();

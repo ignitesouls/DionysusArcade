@@ -26,7 +26,7 @@ public sealed class TalismanShopModule : IModule
         const uint eventFlagStep = 10;
 
         List<ShopItemModel> items = CsvReaderUtils.Read<ShopItemModel>(
-            context.Resource("Misc", "battleship", "shop_talismans.csv"));
+            context.Resource("Data", "TalismanShop", "shop_talismans.csv"));
 
         ParamsEditor editor = context.Params;
         int shopLineupId = firstShopLineupId;

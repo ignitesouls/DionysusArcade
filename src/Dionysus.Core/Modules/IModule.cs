@@ -23,4 +23,8 @@ public interface IModule
 
     // Patch files under Resources/TextPatches that this module applies while active.
     IEnumerable<string> TextPatches(OptionSet options) => Array.Empty<string>();
+
+
+    // Native DLLs, relative to the Mod Engine 3 folder, that this module loads while active.
+    IEnumerable<string> Natives(OptionSet options) => Array.Empty<string>();
 }

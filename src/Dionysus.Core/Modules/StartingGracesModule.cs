@@ -21,7 +21,7 @@ public sealed class StartingGracesModule : IModule
     public void Apply(BuildContext context)
     {
         Dictionary<string, List<GracePoolModel>> pools =
-            CsvReaderUtils.Read<GracePoolModel>(context.Resource("Misc", "battleship", "grace_pools.csv"))
+            CsvReaderUtils.Read<GracePoolModel>(context.Resource("Data", "StartingGraces", "grace_pools.csv"))
                 .GroupBy(g => g.GraceRegion)
                 .ToDictionary(g => g.Key, g => g.ToList());
 

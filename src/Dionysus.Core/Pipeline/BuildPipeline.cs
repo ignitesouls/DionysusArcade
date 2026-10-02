@@ -4,6 +4,7 @@ using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
 using Dionysus.Core.Workspace;
 using UniversalReplacementRandomizer;
+using System.Text;
 
 namespace Dionysus.Core.Pipeline;
 
@@ -13,11 +14,17 @@ public static class BuildPipeline
 {
     // The same seed with the same settings gives the same result within one app version.
     // Update this with each release.
-    private const string SeedPrefix = "dionysus-v0.3";
+    private const string SeedPrefix = "dionysus-v0.4";
+
+
+    public const string Me3Folder = "me3-v0.8.0";
+    public const string ProfileFile = "dionysus.me3";
+    private const string PackageFolder = "package";
 
     public static BuildResult Run(string resourcesRoot, int? seed, IReadOnlyDictionary<string, object?> overrides)
     {
-        string packageDir = Path.Combine(resourcesRoot, "me3-v0.8.0", "basedlc");
+        string me3Dir = Path.Combine(resourcesRoot, Me3Folder);
+        string packageDir = Path.Combine(me3Dir, PackageFolder);
 
         var options = new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), overrides);
         List<IModule> active = ModuleRegistry.All.Where(m => m.IsActive(options)).ToList();
@@ -40,6 +47,9 @@ public static class BuildPipeline
             .SelectMany(m => m.TextPatches(options))
             .Select(name => Path.Combine(resourcesRoot, "TextPatches", name))
             .ToList();
+
+        // Native DLLs requested by the active modules
+        List<string> natives = active.SelectMany(m => m.Natives(options)).Distinct().ToList();
 
         // File sources, highest priority first: packs (last one first), then the bundled vanilla files
         var sources = new List<string>();
@@ -81,7 +91,32 @@ public static class BuildPipeline
         }
         context.Files.WriteAll(packageDir);
 
+        WriteMe3Profile(me3Dir, natives);
+
         return new BuildResult(context.Randomizer.GetBaseSeed(), context.Report);
+    }
+
+    // Writes the Mod Engine 3 profile for this build: the package folder plus the requested natives
+    private static void WriteMe3Profile(string me3Dir, IReadOnlyList<string> natives)
+    {
+        var profile = new StringBuilder();
+        profile.AppendLine("profileVersion = \"v1\"");
+        profile.AppendLine();
+        profile.AppendLine("[[supports]]");
+        profile.AppendLine("game = \"eldenring\"");
+        profile.AppendLine();
+        profile.AppendLine("[[package]]");
+        profile.AppendLine("id = \"dionysus\"");
+        profile.AppendLine($"path = \"{PackageFolder}\"");
+
+        foreach (string native in natives)
+        {
+            profile.AppendLine();
+            profile.AppendLine("[[natives]]");
+            profile.AppendLine($"path = '{native}'");
+        }
+
+        File.WriteAllText(Path.Combine(me3Dir, ProfileFile), profile.ToString());
     }
 
     private static void ClearFolder(string folder)

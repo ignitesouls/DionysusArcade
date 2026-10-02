@@ -36,7 +36,7 @@ public sealed class StartingClassesModule : IModule
     {
         ParamsEditor editor = context.Params;
         var generator = new StartingClassGenerator();
-        string dataDir = context.Resource("Misc", "battleship", "starting_classes");
+        string dataDir = context.Resource("Data", "StartingClasses");
 
         bool vigor20 = context.Options.GetChoice("starting_classes.stat_mode") == StatModeVigor20;
         bool casterKits = context.Options.GetBool("starting_classes.caster_kits");

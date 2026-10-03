@@ -14,7 +14,7 @@ public static class BuildPipeline
 {
     // The same seed with the same settings gives the same result within one app version.
     // Update this with each release.
-    private const string SeedPrefix = "dionysus-v0.4";
+    private const string SeedPrefix = "dionysus-v" + AppInfo.Version;
 
 
     public const string Me3Folder = "me3-v0.8.0";

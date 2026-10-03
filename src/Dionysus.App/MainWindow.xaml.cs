@@ -9,6 +9,7 @@ using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
 using Dionysus.Core.Pipeline;
 using Dionysus.Core.Presets;
+using Dionysus.Core;
 
 namespace Dionysus.App;
 
@@ -31,6 +32,9 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     public MainWindow()
     {
         InitializeComponent();
+
+        Title = $"Dionysus Arcade v{AppInfo.Version}";
+        MainTitleBar.Title = Title;
 
         // Keep the overlay's token in sync, e.g. after installing a new version of Dionysus
         try
@@ -314,25 +318,27 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
     private void UpdateButtons()
     {
-        RandomizeButton.IsEnabled = !_busy;
-        ModeRandomizeButton.IsEnabled = !_busy && ModeList.SelectedItem is Preset;
+        bool customReady = !_busy && IsBuilt(SeedBox.Text, CurrentCustomOptions());
+        bool modeReady = !_busy && ModeList.SelectedItem is Preset preset && IsBuilt(ModeSeedBox.Text, preset.Options);
+
+        // Assemble is only needed when the seed or options differ from what's already built
+        RandomizeButton.IsEnabled = !_busy && !customReady;
+        ModeRandomizeButton.IsEnabled = !_busy && ModeList.SelectedItem is Preset && !modeReady;
+        LaunchButton.IsEnabled = customReady;
+        ModeLaunchButton.IsEnabled = modeReady;
+
         SeedBox.IsEnabled = !_busy;
         ModeSeedBox.IsEnabled = !_busy;
         OptionsPanel.IsEnabled = !_busy;
         ModeList.IsEnabled = !_busy;
 
-        bool customReady = !_busy && IsBuilt(SeedBox.Text, CurrentCustomOptions());
-        bool modeReady = !_busy && ModeList.SelectedItem is Preset preset && IsBuilt(ModeSeedBox.Text, preset.Options);
-        LaunchButton.IsEnabled = customReady;
-        ModeLaunchButton.IsEnabled = modeReady;
-
         if (!_busy)
         {
             StatusText.Text = customReady
-                ? $"Ready to launch (seed {SeedBox.Text.Trim()})."
+                ? $"Ready to launch (seed {SeedBox.Text.Trim()}). Change the seed or options to assemble again."
                 : "Click Assemble to build the mod with the current seed and options.";
             ModeStatusText.Text = modeReady
-                ? $"Ready to launch (seed {ModeSeedBox.Text.Trim()})."
+                ? $"Ready to launch (seed {ModeSeedBox.Text.Trim()}). Change the seed to assemble again."
                 : "Click Assemble to build this mode.";
         }
     }

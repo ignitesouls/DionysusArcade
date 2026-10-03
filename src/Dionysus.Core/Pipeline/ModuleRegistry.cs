@@ -15,7 +15,7 @@ public static class ModuleRegistry
         new ItemShuffleModule(),
         new TweaksModule(),
         new TalismanShopModule(),
-        new IncursionPackModule(),
+        new PackModule(),
         new ModEngineModule(),
     };
 }

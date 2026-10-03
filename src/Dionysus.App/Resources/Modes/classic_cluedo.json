@@ -1,11 +1,10 @@
 {
-    "name": "Classic Battleship",
-    "description": "Battleship with VCC style randomized starting classes, graces and item placements.",
-    "order": 10,
+    "name": "Classic Cluedo",
+    "description": "Cluedo: randomized starting classes, graces and item placements.",
+    "order": 20,
     "options": {
         "me3.stutter_fix": true,
         "me3.crash_fix": true,
-        "me3.overlay": true,
         "patches.battleship_base": true,
         "graces.enabled": true,
         "starting_classes.enabled": true,
@@ -22,6 +21,6 @@
         "tweaks.seluvis_scorpion_charm": true,
         "tweaks.lock_serpent_hunter": true,
         "talisman_shop.enabled": true,
-        "packs.incursion": true
+        "packs.cluedo": true
     }
 }

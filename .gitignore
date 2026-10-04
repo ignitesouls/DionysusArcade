@@ -482,3 +482,5 @@ $RECYCLE.BIN/
 *.swp
 
 publish/
+
+!src/Dionysus.App/Resources/me3-v0.8.0/bin/

@@ -123,7 +123,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
                 }
             case ChoiceOption choice:
                 {
-                    var combo = new ComboBox { ItemsSource = choice.Choices, SelectedItem = value, Width = 260 };
+                    var combo = new ComboBox { ItemsSource = choice.CurrentChoices, SelectedItem = value, Width = 260 };
                     combo.SelectionChanged += (_, _) => MarkChanged();
                     _optionReaders[option.Key] = () => combo.SelectedItem as string;
                     _optionWriters[option.Key] = v => combo.SelectedItem = v;

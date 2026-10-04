@@ -1,0 +1,3 @@
+[submodule "dependencies/BossArenaRandomizer"]
+	path = dependencies/BossArenaRandomizer
+	url = https://github.com/ignitesouls/BossArenaRandomizer

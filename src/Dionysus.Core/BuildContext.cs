@@ -16,6 +16,9 @@ public sealed class BuildContext
 
     public Dictionary<string, List<string>> Report { get; } = new();
 
+    // Files a build produces for the player, e.g. "randomizeopt" -> its path
+    public Dictionary<string, string> Outputs { get; } = new();
+
     // Shortcuts for the most used files. Each opens on first use.
     public ParamsEditor Params => Files.Params;
     public MenuBndEditorService MenuText => Files.MenuText;

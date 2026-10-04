@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Dionysus.Core.Pipeline;
 
-public sealed record BuildResult(int Seed, Dictionary<string, List<string>> Report);
+public sealed record BuildResult(int Seed, Dictionary<string, List<string>> Report, Dictionary<string, string> Outputs);
 
 public static class BuildPipeline
 {
@@ -93,7 +93,7 @@ public static class BuildPipeline
 
         WriteMe3Profile(me3Dir, natives);
 
-        return new BuildResult(context.Randomizer.GetBaseSeed(), context.Report);
+        return new BuildResult(context.Randomizer.GetBaseSeed(), context.Report, context.Outputs);
     }
 
     // Writes the Mod Engine 3 profile for this build: the package folder plus the requested natives

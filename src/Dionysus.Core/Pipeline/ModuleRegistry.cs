@@ -17,5 +17,6 @@ public static class ModuleRegistry
         new TalismanShopModule(),
         new PackModule(),
         new ModEngineModule(),
+        new RandomizerModule(),
     };
 }

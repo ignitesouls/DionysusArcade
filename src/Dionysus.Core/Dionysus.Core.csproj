@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\dependencies\EldenRingParamsEditor\EldenRingParamsEditor\EldenRingParamsEditor.csproj" />
     <ProjectReference Include="..\..\dependencies\UniversalReplacementRandomizer\UniversalReplacementRandomizer\UniversalReplacementRandomizer.csproj" />
+    <ProjectReference Include="..\Dionysus.BossArena\Dionysus.BossArena.csproj" />
   </ItemGroup>
 
   <ItemGroup>

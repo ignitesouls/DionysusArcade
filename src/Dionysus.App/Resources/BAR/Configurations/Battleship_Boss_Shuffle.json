@@ -1,0 +1,8 @@
+{
+  "RandoOptionsPreset": "AbsolootChaos2v2",
+  "ArenaPreset": "Battleship_Boss_Shuffle_Arenas.json",
+  "BossPreset": "Battleship_Boss_Shuffle_Bosses.json",
+  "PairingPreset": "Arena Size Restrictions.json",
+  "ClearArenasEnabled": true,
+  "ClearArenaReplacementId": "2822374"
+}

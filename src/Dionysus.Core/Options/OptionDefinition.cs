@@ -34,14 +34,23 @@ public sealed record IntOption(string Key, string Label, int Default, int Min, i
     };
 }
 
-public sealed record ChoiceOption(string Key, string Label, string Default, IReadOnlyList<string> Choices, string Description = "")
+public sealed record ChoiceOption(string Key, string Label, string Default, IReadOnlyList<string> Choices,
+    string Description = "", Func<IReadOnlyList<string>>? ChoicesSource = null)
     : OptionDefinition(Key, Label, Description)
 {
+    // The choices right now: from ChoicesSource if there is one (e.g. files that can be added later),
+    // otherwise the fixed list
+    public IReadOnlyList<string> CurrentChoices => ChoicesSource?.Invoke() ?? Choices;
+
     public override object DefaultValue => Default;
-    public override object Normalize(object? value) => value switch
+    public override object Normalize(object? value)
     {
-        string s when Choices.Contains(s) => s,
-        JsonElement { ValueKind: JsonValueKind.String } e when Choices.Contains(e.GetString()!) => e.GetString()!,
-        _ => Default
-    };
+        IReadOnlyList<string> choices = CurrentChoices;
+        return value switch
+        {
+            string s when choices.Contains(s) => s,
+            JsonElement { ValueKind: JsonValueKind.String } e when choices.Contains(e.GetString()!) => e.GetString()!,
+            _ => Default
+        };
+    }
 }

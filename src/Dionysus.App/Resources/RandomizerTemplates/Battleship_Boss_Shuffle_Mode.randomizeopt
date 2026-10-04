@@ -1,0 +1,662 @@
+Game: ER
+Version: v0.12.2
+Options: allcraft bossbgm copydrops crashfix customenemy customitem dlcblessing dlckeysilo dlcroundtable dlcstart enemy ignoresize mats maxbb maxflask maxmemslot maxpouch maxwhetblade messmershard:17 nerfgargoyles nerflantern nightday nohand nooutfits nostarting phasehp playerlevel:60 racemode_health racemode_key racemode_scadu racemode_upgrades scale shardreq:7 snowfast sombermode tarnished v16 weaponprogression woodsfast bias:0 seed:2068130225
+EnemyPreset: >+
+  Classes:
+    Basic: {}
+    Boss: {}
+    MinorBoss:
+      InheritParent: true
+    Miniboss:
+      InheritParent: true
+    NightMiniboss:
+      InheritParent: true
+    DragonMiniboss:
+      InheritParent: true
+    Evergaol:
+      InheritParent: true
+    Wildlife:
+      InheritParent: true
+    HostileNPC: {}
+    Scarab:
+      NoRandom: true
+  Options: bosshp regularhp v4
+ItemPreset: >+
+  KeyItemSilo: DLC
+
+  NorandomItems:
+
+  - Name: Spectral Steed Whistle
+    ID: goods:130
+  - Name: Flask of Wondrous Physick
+    ID: goods:250
+  - Name: Crafting Kit
+    ID: goods:8500
+  - Name: Spirit Calling Bell
+    ID: goods:8158
+  - Name: Whetstone Knife
+    ID: goods:8590
+  - Name: Lantern
+    ID: goods:2070
+  - Name: Gaol Lower Level Key
+    ID: goods:2008006
+  - Name: Gaol Upper Level Key
+    ID: goods:2008005
+  - Name: Star-Lined Sword
+    ID: weapon:2520000
+  - Name: Ymir's Bell Bearing
+    ID: goods:2008901
+  - Name: Maternal Staff
+    ID: weapon:33520000
+  - Name: High Priest Gloves
+    ID: protector:5060200
+  - Name: High Priest Hat
+    ID: protector:5060000
+  - Name: High Priest Robe
+    ID: protector:5060100
+  - Name: High Priest Undergarments
+    ID: protector:5060300
+  - Name: Revered Spirit Ash
+    ID: goods:2010100
+  - Name: Remembrance of the Mother of Fingers
+    ID: goods:2002909
+  - Name: "\"Champion's Song\" Painting"
+    ID: goods:8202
+  - Name: '"Flightless Bird" Painting'
+    ID: goods:8205
+  - Name: '"Homing Instinct" Painting'
+    ID: goods:8200
+  - Name: '"Incursion" Painting'
+    ID: goods:2008200
+  - Name: '"Prophecy" Painting'
+    ID: goods:8204
+  - Name: '"Redmane" Painting'
+    ID: goods:8206
+  - Name: '"Resurrection" Painting'
+    ID: goods:8201
+  - Name: '"Sorcerer" Painting'
+    ID: goods:8203
+  - Name: '"The Sacred Tower" Painting'
+    ID: goods:2008201
+  NorandomLocations: []
+
+  RemoveItems:
+
+  - Name: Furlcalling Finger Remedy
+    ID: goods:150
+  Placements:
+
+  - Type: KeyItems
+    Mode: Custom
+    Items:
+    - Group: keyitems
+    Requires:
+    - Tag: racemode
+    - Tag: boss
+    - Tag: namelessmausoleum
+    - Tag: criticalpath
+    - Tag: overworldboss
+    - Tag: dragonboss
+    Excludes:
+    - Tag: missable
+    - Tag: night
+  - Type: QuestItems
+    Mode: Anywhere
+    Items:
+    - Group: questitems
+    - Name: Shabriri Grape
+      ID: goods:1240
+    - Name: Seedbed Curse
+      ID: goods:8193
+    - Name: Deathroot
+      ID: goods:2090
+    Excludes:
+    - Tag: missable
+  - Type: CoreMechanics
+    Mode: Important
+    Items:
+    - Name: Talisman Pouch
+      ID: goods:10040
+    - Name: Memory Stone
+      ID: goods:10030
+    - Name: Iron Whetblade
+      ID: goods:8970
+    - Name: Red-Hot Whetblade
+      ID: goods:8971
+    - Name: Sanctified Whetblade
+      ID: goods:8972
+    - Name: Glintstone Whetblade
+      ID: goods:8973
+    - Name: Black Whetblade
+      ID: goods:8974
+    Requires:
+    - Tag: racemode
+    - Tag: boss
+    Excludes:
+    - Tag: missable
+  - Type: SacredFlaskUpgrades
+    Mode: Custom
+    Items:
+    - Name: Golden Seed
+      ID: goods:10010
+    - Name: Sacred Tear
+      ID: goods:10020
+    Requires:
+    - Tag: boss
+    - Tag: namelessmausoleum
+    - Tag: racemode
+    - Tag: criticalpath
+    - Tag: overworldboss
+    - Tag: dragonboss
+    Excludes:
+    - Tag: missable
+  - Type: UpgradeBellBearings
+    Mode: Norandom
+    Items:
+    - Group: upgradeashes
+    Excludes:
+    - Tag: missable
+  - Type: ShadowRealmBlessings
+    Mode: Custom
+    Items:
+    - Name: Scadutree Fragment
+      ID: goods:2010000
+    - Name: Revered Spirit Ash
+      ID: goods:2010100
+    Requires:
+    - Tag: racemode
+    - Tag: boss
+    - Tag: namelessmausoleum
+    - Tag: overworldboss
+    - Tag: dragonboss
+    - Tag: criticalpath
+    Excludes:
+    - Tag: missable
+  - Type: SecondaryMechanics
+    Mode: Custom
+    Items:
+    - Group: cookbooks
+    - Group: containers
+    - Group: crystaltears
+    - Group: itemashes
+    Excludes:
+    - Tag: missable
+  - Type: BossTools
+    Mode: Custom
+    Items:
+    - Name: Margit's Shackle
+      ID: goods:2140
+    - Name: Mohg's Shackle
+      ID: goods:2150
+    - Name: Miquella's Great Rune
+      ID: goods:2008000
+    - Name: Sentry's Torch
+      ID: weapon:24070000
+    - Name: Purifying Crystal Tear
+      ID: goods:11027
+    Excludes:
+    - Tag: missable
+    - Tag: boss
+    - Tag: altboss
+  - Type: BaseOnlyItems
+    Mode: Custom
+    Items:
+    - Group: craftingmats
+    - Group: cookbooks
+    - Group: itemashes
+    - Name: Golden Rune [1]
+      ID: goods:2900
+    - Name: Golden Rune [2]
+      ID: goods:2901
+    - Name: Golden Rune [3]
+      ID: goods:2902
+    - Name: Golden Rune [4]
+      ID: goods:2903
+    - Name: Golden Rune [5]
+      ID: goods:2904
+    - Name: Golden Rune [6]
+      ID: goods:2905
+    - Name: Urumi
+      ID: weapon:20070000
+    - Name: Stonesword Key
+      ID: goods:8000
+    - Name: Great Grave Glovewort
+      ID: goods:10909
+    - Name: Deathroot
+      ID: goods:2090
+    - Name: Ghost Glovewort [1]
+      ID: goods:10910
+    - Name: Ghost Glovewort [2]
+      ID: goods:10911
+    - Name: Ghost Glovewort [3]
+      ID: goods:10912
+    - Name: Ghost Glovewort [4]
+      ID: goods:10913
+    - Name: Ghost Glovewort [5]
+      ID: goods:10914
+    - Name: Ghost Glovewort [6]
+      ID: goods:10915
+    - Name: Ghost Glovewort [7]
+      ID: goods:10916
+    - Name: Ghost Glovewort [8]
+      ID: goods:10917
+    - Name: Ghost Glovewort [9]
+      ID: goods:10918
+    - Name: Grave Glovewort [1]
+      ID: goods:10900
+    - Name: Grave Glovewort [2]
+      ID: goods:10901
+    - Name: Grave Glovewort [3]
+      ID: goods:10902
+    - Name: Grave Glovewort [4]
+      ID: goods:10903
+    - Name: Grave Glovewort [5]
+      ID: goods:10904
+    - Name: Grave Glovewort [6]
+      ID: goods:10905
+    - Name: Grave Glovewort [7]
+      ID: goods:10906
+    - Name: Grave Glovewort [8]
+      ID: goods:10907
+    - Name: Grave Glovewort [9]
+      ID: goods:10908
+    - Name: 'Ash of War: Through and Through'
+      ID: gem:40000
+    - Name: "Ash of War: Thops's Barrier"
+      ID: gem:31000
+    - Name: 'Ash of War: Rain of Arrows'
+      ID: gem:40600
+    - Name: 'Ash of War: Mighty Shot'
+      ID: gem:40200
+    - Name: 'Ash of War: Enchanted Shot'
+      ID: gem:40400
+    - Name: 'Ash of War: Barrage'
+      ID: gem:40100
+    - Name: 'Ash of War: Barricade Shield'
+      ID: gem:30100
+    - Name: 'Ash of War: Piercing Throw'
+      ID: gem:402000
+    - Name: 'Ash of War: Scattershot Throw'
+      ID: gem:403000
+    - Name: 'Ash of War: Raging Beast'
+      ID: gem:406000
+    - Name: "Ash of War: Savage Lion's Claw"
+      ID: gem:415000
+    - Name: 'Ash of War: Wall of Sparks'
+      ID: gem:404000
+    - Name: 'Ash of War: Rolling Sparks'
+      ID: gem:405000
+    - Name: 'Ash of War: Shield Bash'
+      ID: gem:30000
+    - Name: 'Ash of War: Shield Crash'
+      ID: gem:30800
+    - Name: 'Ash of War: No Skill'
+      ID: gem:30900
+    - Group: arrows
+    - Name: Smithing Stone [1]
+      ID: goods:10100
+    - Name: Smithing Stone [2]
+      ID: goods:10101
+    - Name: Smithing Stone [3]
+      ID: goods:10102
+    - Name: Smithing Stone [4]
+      ID: goods:10103
+    - Name: Somber Smithing Stone [1]
+      ID: goods:10160
+    - Name: Somber Smithing Stone [2]
+      ID: goods:10161
+    - Name: Somber Smithing Stone [3]
+      ID: goods:10162
+    - Name: Somber Smithing Stone [4]
+      ID: goods:10163
+    - Name: Somber Smithing Stone [5]
+      ID: goods:10164
+    - Name: Festering Bloody Finger
+      ID: goods:111
+    - Name: Memory Stone
+      ID: goods:10030
+    - Name: Furnace Keeper's Note
+      ID: goods:2008025
+    - Name: 'Note: Below the Capital'
+      ID: goods:8717
+    - Name: 'Note: Demi-human Mobs'
+      ID: goods:8708
+    - Name: 'Note: Flame Chariots'
+      ID: goods:8707
+    - Name: 'Note: Flask of Wondrous Physick'
+      ID: goods:8702
+    - Name: 'Note: Frenzied Flame Village'
+      ID: goods:8715
+    - Name: 'Note: Gateway'
+      ID: goods:8713
+    - Name: "Note: Gravity's Advantage"
+      ID: goods:8710
+    - Name: 'Note: Hidden Cave'
+      ID: goods:8700
+    - Name: 'Note: Imp Shades'
+      ID: goods:8701
+    - Name: 'Note: Land Squirts'
+      ID: goods:8709
+    - Name: "Note: Miquella's Needle"
+      ID: goods:8714
+    - Name: 'Note: Revenants'
+      ID: goods:8711
+    - Name: 'Note: Sealed Spiritsprings'
+      ID: goods:2008031
+    - Name: 'Note: Stonedigger Trolls'
+      ID: goods:8703
+    - Name: 'Note: The Lord of Frenzied Flame'
+      ID: goods:8716
+    - Name: "Note: The Preceptor's Secret"
+      ID: goods:8224
+    - Name: 'Note: Unseen Assassins'
+      ID: goods:8705
+    - Name: 'Note: Wandering Mausoleum'
+      ID: goods:8704
+    - Name: 'Note: Waypoint Ruins'
+      ID: goods:8712
+    - Name: Rogier's Letter
+      ID: goods:8223
+    - Name: Zorayas's Letter
+      ID: goods:8221
+    - Name: Furled Finger's Trick-Mirror
+      ID: accessory:6080
+    - Name: Tarnished's Furled Finger
+      ID: goods:100
+    - Name: Tarnished's Wizened Finger
+      ID: goods:106
+    - Name: Small Red Effigy
+      ID: goods:110
+    - Name: Duelist's Furled Finger
+      ID: goods:101
+    - Name: Recusant Finger
+      ID: goods:112
+    - Name: Blue Cipher Ring
+      ID: goods:105
+    - Name: White Cipher Ring
+      ID: goods:104
+    - Name: Taunter's Tongue
+      ID: goods:108
+    - Name: Grace Mimic
+      ID: goods:2050
+    - Name: Rainbow Stone
+      ID: goods:2020
+    - Name: Celestial Dew
+      ID: goods:2130
+    - Name: Seedbed Curse
+      ID: goods:8193
+    - Name: Soft Cotton
+      ID: goods:2100
+    - Name: Soap
+      ID: goods:2120
+    - Name: Ruin Fragment
+      ID: goods:1760
+    - Name: Swollen Grape
+      ID: goods:2020017
+    - Name: Shabriri Grape
+      ID: goods:1240
+    - Name: Glowstone
+      ID: goods:2030
+    - Name: Broken Rune
+      ID: goods:2002951
+    - Name: Silver-Pickled Fowl Foot
+      ID: goods:1190
+    - Name: Silver Horn Tender
+      ID: goods:2001220
+    - Name: Ruins Map
+      ID: goods:2008016
+    - Name: Ruins Map (2nd)
+      ID: goods:2008017
+    - Name: Ruins Map (3rd)
+      ID: goods:2008018
+    - Name: Miquella's Needle
+      ID: goods:2190
+    - Name: Innard Meat
+      ID: goods:2001700
+    - Name: Polter Stone
+      ID: goods:2002000
+    - Name: Surging Frenzied Flame
+      ID: goods:2003160
+    - Name: Glinting Nail
+      ID: goods:2003200
+    - Name: Fire Spritestone
+      ID: goods:2003190
+    - Name: Dragon Communion Harpoon
+      ID: goods:2001710
+    - Name: Fingerprint Nostrum
+      ID: goods:2001110
+    - Name: Cuckoo Glintstone
+      ID: goods:3030
+    - Name: Frenzyflame Stone
+      ID: goods:3311
+    - Name: Glass Shard
+      ID: goods:10000
+    - Name: Shield Grease
+      ID: goods:1690
+    - Name: Call of Tibia
+      ID: goods:2003150
+    - Name: Prattling Pate "Apologies"
+      ID: goods:2202
+    - Name: Prattling Pate "Hello"
+      ID: goods:2200
+    - Name: Prattling Pate "Lamentation"
+      ID: goods:2002150
+    - Name: Prattling Pate "Let's get to it"
+      ID: goods:2206
+    - Name: Prattling Pate "My beloved"
+      ID: goods:2205
+    - Name: Prattling Pate "Please help"
+      ID: goods:2204
+    - Name: Prattling Pate "Thank you"
+      ID: goods:2201
+    - Name: Prattling Pate "Wonderful"
+      ID: goods:2203
+    - Name: Prattling Pate "You're beautiful"
+      ID: goods:2207
+    - Name: Cross Map
+      ID: goods:2008007
+    - Name: New Cross Map
+      ID: goods:2008012
+    - Name: Sellia's Secret
+      ID: goods:8978
+    - Name: Weathered Map
+      ID: goods:8225
+    - Name: Monk's Missive
+      ID: goods:2008029
+    - Name: Ancient Ruins Cross Message
+      ID: goods:2008028
+    - Name: Castle Cross Message
+      ID: goods:2008027
+    - Name: Storehouse Cross Message
+      ID: goods:2008030
+    - Name: Torn Diary Page
+      ID: goods:2008032
+    - Name: Tower of Shadow Message
+      ID: goods:2008037
+    - Name: Volcano Manor Invitation
+      ID: goods:8137
+    - Name: Meeting Place Map
+      ID: goods:8198
+    - Name: Knifeprint Clue
+      ID: goods:8190
+    - Name: Tailoring Tools
+      ID: goods:8163
+    - Name: Golden Tailoring Tools
+      ID: goods:8188
+    - Name: Bone Bow
+      ID: weapon:40500000
+    - Name: Shortbow
+      ID: weapon:40000000
+    - Name: Composite Bow
+      ID: weapon:40050000
+    - Name: Red Branch Shortbow
+      ID: weapon:40020000
+    - Name: Misbegotten Shortbow
+      ID: weapon:40010000
+    - Name: Harp Bow
+      ID: weapon:40030000
+    - Name: Ansbach's Longbow
+      ID: weapon:41510000
+    - Name: Albinauric Bow
+      ID: weapon:41010000
+    - Name: Black Bow
+      ID: weapon:41070000
+    - Name: Pulley Bow
+      ID: weapon:41060000
+    - Name: Horn Bow
+      ID: weapon:41020000
+    - Name: Serpent Bow
+      ID: weapon:41040000
+    - Name: Erdtree Bow
+      ID: weapon:41030000
+    - Name: Longbow
+      ID: weapon:41000000
+    - Name: Igon's Greatbow
+      ID: weapon:42500000
+    - Name: Greatbow
+      ID: weapon:42040000
+    - Name: Golem Greatbow
+      ID: weapon:42010000
+    - Name: Erdtree Greatbow
+      ID: weapon:42030000
+    - Name: Lion Greatbow
+      ID: weapon:42000000
+    - Name: Repeating Crossbow
+      ID: weapon:43500000
+    - Name: Spread Crossbow
+      ID: weapon:43510000
+    - Name: Soldier's Crossbow
+      ID: weapon:43000000
+    - Name: Light Crossbow
+      ID: weapon:43020000
+    - Name: Heavy Crossbow
+      ID: weapon:43030000
+    - Name: Arbalest
+      ID: weapon:43080000
+    - Name: Crepus's Black-Key Crossbow
+      ID: weapon:43110000
+    - Name: Pulley Crossbow
+      ID: weapon:43050000
+    - Name: Full Moon Crossbow
+      ID: weapon:43060000
+    - Name: Rabbath's Cannon
+      ID: weapon:44500000
+    - Name: Hand Ballista
+      ID: weapon:44000000
+    - Name: Jar Cannon
+      ID: weapon:44010000
+    Excludes: []
+  - Type: DlcOnlyItems
+    Mode: Custom
+    Items:
+    - Name: Scadutree Fragment
+      ID: goods:2010000
+    - Name: Revered Spirit Ash
+      ID: goods:2010100
+    - Name: Golden Seed
+      ID: goods:10010
+    - Name: Sacred Tear
+      ID: goods:10020
+    - Name: Talisman Pouch
+      ID: goods:10040
+    - Name: Memory Stone
+      ID: goods:10030
+    - Group: whetblades
+    - Group: upgradeashes
+    - Group: crystaltears
+    - Name: Golden Rune [12]
+      ID: goods:2911
+    - Name: Golden Rune [13]
+      ID: goods:2912
+    - Name: Marika's Rune
+      ID: goods:2002960
+    - Name: Lord's Rune
+      ID: goods:2919
+    - Name: Numen's Rune
+      ID: goods:2913
+    - Group: bosssouls
+    - Name: Shadow Realm Rune [1]
+      ID: goods:2002952
+    - Name: Shadow Realm Rune [2]
+      ID: goods:2002953
+    - Name: Shadow Realm Rune [3]
+      ID: goods:2002954
+    - Name: Shadow Realm Rune [4]
+      ID: goods:2002955
+    - Name: Shadow Realm Rune [5]
+      ID: goods:2002956
+    - Name: Shadow Realm Rune [6]
+      ID: goods:2002957
+    - Name: Shadow Realm Rune [7]
+      ID: goods:2002958
+    - Name: 'Ash of War: Kick'
+      ID: gem:50300
+    - Name: 'Ash of War: Endure'
+      ID: gem:70000
+    - Name: 'Ash of War: Ground Slam'
+      ID: gem:50600
+    - Name: "Ash of War: Hoarah Loux's Earthshaker"
+      ID: gem:50900
+    - Name: 'Ash of War: Quickstep'
+      ID: gem:80000
+    - Name: "Ash of War: Bloodhound's Step"
+      ID: gem:80100
+    - Name: 'Ash of War: Raptor of the Mists'
+      ID: gem:80200
+    - Name: "Ash of War: Beast's Roar"
+      ID: gem:65200
+    - Name: 'Ash of War: Storm Stomp'
+      ID: gem:50200
+    - Name: Larval Tear (DLC)
+      ID: goods:2008033
+    - Name: Rune of an Unsung Hero
+      ID: goods:2002959
+    - Name: Golden Rune [11]
+      ID: goods:2910
+    Excludes: []
+  PremiumGroups:
+
+  - Type: PremiumShop
+    Locations:
+    - Tag: bosssoulshop
+    - Tag: dragonshop
+    Items:
+    - Group: accessories
+    - Group: weapons
+    - Group: gems
+    - Group: crystaltears
+    - Group: sorceries
+    - Group: incantations
+    - Name: Ancient Dragon Smithing Stone
+      ID: goods:10140
+    - Name: Somber Ancient Dragon Smithing Stone
+      ID: goods:10168
+  - Type: SorceryShop
+    Disabled: true
+    Locations:
+    - Tag: sorceryshop
+    Items:
+    - Group: sorceries
+  - Type: MiracleShop
+    Disabled: true
+    Locations:
+    - Tag: incantationshop
+    Items:
+    - Group: incantations
+  CustomSilos: []
+
+  LocationGroups:
+
+  - Requires:
+    - Tag: racemode
+    - Tag: boss
+    Excludes:
+    - Tag: missable
+  ItemShards:
+
+  - Item:
+      Name: Messmer's Kindling
+      ID: goods:2008021
+    Count: 17
+  Version: 2
+HelperConfig: 

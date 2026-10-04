@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <BarSource>..\..\dependencies\BossArenaRandomizer\BossArenaRandomizer</BarSource>
+  </PropertyGroup>
+
+  <!-- BAR's generation code, compiled straight from the BossArenaRandomizer submodule. Nothing is copied. -->
+  <ItemGroup>
+    <Compile Include="$(BarSource)\Core\**\*.cs" LinkBase="Core" />
+    <Compile Include="$(BarSource)\Services\**\*.cs" LinkBase="Services" />
+    <!-- The one file tied to BAR's own window -->
+    <Compile Remove="$(BarSource)\Services\SettingService.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<!-- BAR's arena/boss database and pairing presets, straight from the submodule.
+       They go in a "Data" folder next to the app, which is where BAR's code looks for them. -->
+		<None Include="..\..\dependencies\BossArenaRandomizer\BossArenaRandomizer\Data\**\*"
+			  Link="Data\%(RecursiveDir)%(Filename)%(Extension)"
+			  CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+</Project>

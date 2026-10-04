@@ -1,4 +1,6 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
+// Originally part of the Athena Randomizer (https://github.com/ignitesouls/AthenaRandomizer),
+// copyright the Athena Randomizer contributors. Modified for Dionysus Arcade.
 using SoulsFormats;
 
 namespace Dionysus.Core.FormatEditors;

@@ -33,4 +33,12 @@
 	  <Folder Include="Resources\Modes\" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<!-- The license and notices travel with the app, without cluttering its main folder -->
+		<None Include="..\..\LICENSE" Link="Resources\Licenses\LICENSE.txt"
+			  CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+		<None Include="..\..\THIRD_PARTY_NOTICES.md" Link="Resources\Licenses\THIRD_PARTY_NOTICES.md"
+			  CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+	</ItemGroup>
+
 </Project>

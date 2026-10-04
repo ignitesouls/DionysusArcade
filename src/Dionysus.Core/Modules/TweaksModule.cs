@@ -1,4 +1,5 @@
 ﻿// SPDX-License-Identifier: GPL-3.0-only
+// Based on the Athena Randomizer's implementation (https://github.com/ignitesouls/AthenaRandomizer).
 using Dionysus.Core.Options;
 using EldenRingParamsEditor;
 

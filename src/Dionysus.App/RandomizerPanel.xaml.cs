@@ -11,6 +11,7 @@ namespace Dionysus.App;
 public partial class RandomizerPanel : UserControl
 {
     private string _optionsFile = "";
+    private string _overlayDll = "";
 
     public RandomizerPanel()
     {
@@ -24,9 +25,10 @@ public partial class RandomizerPanel : UserControl
         OptionsFileText.Text = Path.GetFileName(_optionsFile);
         ModFolderBox.Text = outputs.GetValueOrDefault("modfolder", "");
 
-        string overlay = outputs.GetValueOrDefault("overlay", "");
-        OverlayBox.Text = overlay;
-        OverlaySection.Visibility = overlay.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
+        // Matt's randomizer wants the folder containing the overlay DLL, not the DLL itself
+        _overlayDll = outputs.GetValueOrDefault("overlay", "");
+        OverlayBox.Text = _overlayDll.Length > 0 ? Path.GetDirectoryName(_overlayDll)! : "";
+        OverlaySection.Visibility = _overlayDll.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
         PanelStatus.Text = "";
     }
 
@@ -56,8 +58,9 @@ public partial class RandomizerPanel : UserControl
     private void CopyOverlay_Click(object sender, RoutedEventArgs e) => CopyText(OverlayBox.Text, "Overlay path copied.");
 
     // Opens the overlay's folder with er_overlay.dll already selected
+    // Opens the overlay's folder with er_overlay.dll already selected
     private void OpenOverlayFolder_Click(object sender, RoutedEventArgs e) =>
-        Process.Start("explorer.exe", $"/select,\"{OverlayBox.Text}\"");
+        Process.Start("explorer.exe", $"/select,\"{_overlayDll}\"");
 
     private void CopyText(string text, string message)
     {

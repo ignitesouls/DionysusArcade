@@ -24,7 +24,7 @@
             <StackPanel x:Name="OverlaySection">
                 <TextBlock Text="3. Overlay" FontWeight="SemiBold"/>
                 <TextBlock TextWrapping="Wrap" Opacity="0.8" Margin="0,4,0,4"
-                           Text="Matt's randomizer doesn't load the overlay by itself. In Matt's randomizer, use &quot;Add dll mod&quot; and select this file:"/>
+                           Text="Matt's randomizer doesn't load the overlay by itself. In Matt's randomizer, use &quot;Add dll mod&quot; and select er_overlay.dll inside this folder:"/>
                 <StackPanel Orientation="Horizontal">
                     <ui:TextBox x:Name="OverlayBox" Width="440" IsReadOnly="True"/>
                     <ui:Button Content="Copy" Margin="8,0,0,0" Click="CopyOverlay_Click"/>

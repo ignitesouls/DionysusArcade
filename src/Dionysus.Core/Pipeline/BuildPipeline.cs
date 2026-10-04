@@ -36,6 +36,11 @@ public static class BuildPipeline
             .Select(name => Path.Combine(resourcesRoot, "Packs", name))
             .ToList();
 
+        // Pack files the active modules want left out, e.g. ones that break Matt's randomizer
+        var excludedFiles = new HashSet<string>(
+            active.SelectMany(m => m.ExcludedFiles(options)).Select(NormalizeGamePath),
+            StringComparer.OrdinalIgnoreCase);
+
         // Param patch files requested by the active modules, applied in module order
         List<string> paramPatches = active
             .SelectMany(m => m.ParamPatches(options))
@@ -87,11 +92,20 @@ public static class BuildPipeline
         ClearFolder(packageDir);
         foreach (string pack in packs)
         {
-            CopyFolder(pack, packageDir);
+            CopyFolder(pack, packageDir, excludedFiles);
         }
         context.Files.WriteAll(packageDir);
 
         WriteMe3Profile(me3Dir, natives);
+
+        // Paths the randomizer panel shows: the mod folder, and the overlay DLL if this build loads one
+        context.Outputs["modfolder"] = packageDir;
+        string? overlay = natives.FirstOrDefault(n =>
+            Path.GetFileName(n).Equals("er_overlay.dll", StringComparison.OrdinalIgnoreCase));
+        if (overlay != null)
+        {
+            context.Outputs["overlay"] = Path.GetFullPath(Path.Combine(me3Dir, overlay));
+        }
 
         return new BuildResult(context.Randomizer.GetBaseSeed(), context.Report, context.Outputs);
     }
@@ -135,7 +149,7 @@ public static class BuildPipeline
         }
     }
 
-    private static void CopyFolder(string source, string target)
+    private static void CopyFolder(string source, string target, IReadOnlySet<string> excludedFiles)
     {
         if (!Directory.Exists(source))
         {
@@ -144,9 +158,18 @@ public static class BuildPipeline
 
         foreach (string file in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
         {
-            string destination = Path.Combine(target, Path.GetRelativePath(source, file));
+            string relativePath = Path.GetRelativePath(source, file);
+            if (excludedFiles.Contains(NormalizeGamePath(relativePath)))
+            {
+                continue;
+            }
+
+            string destination = Path.Combine(target, relativePath);
             Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
             File.Copy(file, destination, overwrite: true);
         }
     }
+
+    // "map\MapStudio\x.msb.dcx" and "map/mapstudio/x.msb.dcx" should count as the same file
+    private static string NormalizeGamePath(string path) => path.Replace('\\', '/').TrimStart('/');
 }

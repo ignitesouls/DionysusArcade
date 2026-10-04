@@ -14,6 +14,8 @@ public sealed class AppSettings
     public string? LastMode { get; set; }
 
     public string BattleshipToken { get; set; } = "";
+
+    public Dictionary<string, string> LastBuildOutputs { get; set; } = new();
 }
 
 public static class SettingsService

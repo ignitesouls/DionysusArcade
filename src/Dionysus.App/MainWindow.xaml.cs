@@ -5,11 +5,13 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using Dionysus.App.Services;
+using Dionysus.Core;
 using Dionysus.Core.Modules;
 using Dionysus.Core.Options;
 using Dionysus.Core.Pipeline;
 using Dionysus.Core.Presets;
-using Dionysus.Core;
+using Dionysus.Core.Rando;
+using Microsoft.Win32;
 
 namespace Dionysus.App;
 
@@ -27,12 +29,15 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
     // Fingerprint (seed + every option value) of the package on disk, or null if there isn't a usable one
     private string? _lastBuildFingerprint;
+
+    // Files the last build produced, e.g. the randomizer options file
+    private Dictionary<string, string> _lastOutputs = new();
+
     private bool _busy;
 
     public MainWindow()
     {
         InitializeComponent();
-
         Title = $"Dionysus Arcade v{AppInfo.Version}";
         MainTitleBar.Title = Title;
 
@@ -46,7 +51,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
             // Not worth stopping startup over; saving the token in Settings reports any problem
         }
 
-        BuildOptionsPanel();
+        BuildOptionsPanel(_settings.LastBuiltOptions);
         LoadPresetList();
 
         // Restore the last build, as long as its package is still on disk
@@ -54,6 +59,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
             && File.Exists(Path.Combine(ResourcesRoot, BuildPipeline.Me3Folder, BuildPipeline.ProfileFile)))
         {
             _lastBuildFingerprint = Fingerprint(seed, _settings.LastBuiltOptions);
+            _lastOutputs = _settings.LastBuildOutputs;
             SeedBox.Text = seed.ToString();
             ModeSeedBox.Text = seed.ToString();
         }
@@ -71,10 +77,9 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
     // ---------- Options panel (Custom tab) ----------
 
-    private void BuildOptionsPanel()
+    private void BuildOptionsPanel(IReadOnlyDictionary<string, object?> values)
     {
-        // Start from the options of the last build (or defaults, if there isn't one)
-        var current = new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), _settings.LastBuiltOptions);
+        var current = new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), values);
 
         foreach (IModule module in ModuleRegistry.All)
         {
@@ -92,6 +97,16 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
                 Margin = new Thickness(0, 0, 0, 8)
             });
         }
+    }
+
+    // Rebuilds every option control, e.g. so a newly imported template appears in its dropdown
+    private void RebuildOptionsPanel(IReadOnlyDictionary<string, object?> values)
+    {
+        OptionsPanel.Children.Clear();
+        _optionReaders.Clear();
+        _optionWriters.Clear();
+        BuildOptionsPanel(values);
+        UpdateButtons();
     }
 
     private UIElement CreateControl(OptionDefinition option, object value)
@@ -164,6 +179,24 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
                 write(value);
             }
         }
+    }
+
+    private void ImportTemplateButton_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new OpenFileDialog
+        {
+            Title = "Import a template saved in Matt's randomizer",
+            Filter = "Randomizer options (*.randomizeopt)|*.randomizeopt"
+        };
+        if (dialog.ShowDialog() != true) return;
+
+        string name = RandomizerTemplates.Import(dialog.FileName);
+
+        // Rebuild the options so the new template is listed, and select it
+        Dictionary<string, object?> values = CurrentCustomOptions();
+        values["randomizer.template"] = name;
+        RebuildOptionsPanel(values);
+        StatusText.Text = $"Imported template \"{name}\".";
     }
 
     // ---------- Modes and profiles ----------
@@ -283,7 +316,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     {
         if (ModeList.SelectedItem is not Preset profile || profile.IsBuiltIn) return;
 
-        if (MessageBox.Show($"Delete the profile \"{profile.Name}\"?", "Dionysus Arcade",
+        if (MessageBox.Show($"Delete \"{profile.Name}\"?", "Dionysus Arcade",
                 MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
         {
             return;
@@ -314,18 +347,33 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         && int.TryParse(seedText.Trim(), out int seed)
         && Fingerprint(seed, options) == _lastBuildFingerprint;
 
+    private static bool UsesRandomizer(IReadOnlyDictionary<string, object?> options) =>
+        new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), options).GetBool("randomizer.enabled");
+
     private void MarkChanged() => UpdateButtons();
 
     private void UpdateButtons()
     {
-        bool customReady = !_busy && IsBuilt(SeedBox.Text, CurrentCustomOptions());
-        bool modeReady = !_busy && ModeList.SelectedItem is Preset preset && IsBuilt(ModeSeedBox.Text, preset.Options);
+        Dictionary<string, object?> customOptions = CurrentCustomOptions();
+        Preset? mode = ModeList.SelectedItem as Preset;
+
+        bool customReady = !_busy && IsBuilt(SeedBox.Text, customOptions);
+        bool modeReady = !_busy && mode != null && IsBuilt(ModeSeedBox.Text, mode.Options);
+        bool customRandomizer = UsesRandomizer(customOptions);
+        bool modeRandomizer = mode != null && UsesRandomizer(mode.Options);
+        bool haveRandomizerOutput = _lastOutputs.ContainsKey("randomizeopt");
 
         // Assemble is only needed when the seed or options differ from what's already built
         RandomizeButton.IsEnabled = !_busy && !customReady;
-        ModeRandomizeButton.IsEnabled = !_busy && ModeList.SelectedItem is Preset && !modeReady;
+        ModeRandomizeButton.IsEnabled = !_busy && mode != null && !modeReady;
+
+        // Randomizer builds are launched from Matt's randomizer, so they show the randomizer panel instead of Launch
         LaunchButton.IsEnabled = customReady;
         ModeLaunchButton.IsEnabled = modeReady;
+        LaunchButton.Visibility = customRandomizer ? Visibility.Collapsed : Visibility.Visible;
+        ModeLaunchButton.Visibility = modeRandomizer ? Visibility.Collapsed : Visibility.Visible;
+        ShowRandomizerPanel(CustomRandomizerPanel, customReady && customRandomizer && haveRandomizerOutput);
+        ShowRandomizerPanel(ModeRandomizerPanel, modeReady && modeRandomizer && haveRandomizerOutput);
 
         SeedBox.IsEnabled = !_busy;
         ModeSeedBox.IsEnabled = !_busy;
@@ -334,14 +382,24 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
         if (!_busy)
         {
-            StatusText.Text = customReady
-                ? $"Ready to launch (seed {SeedBox.Text.Trim()}). Change the seed or options to assemble again."
-                : "Click Assemble to build the mod with the current seed and options.";
-            ModeStatusText.Text = modeReady
-                ? $"Ready to launch (seed {ModeSeedBox.Text.Trim()}). Change the seed to assemble again."
-                : "Click Assemble to build this mode.";
+            StatusText.Text = StatusFor(customReady, customRandomizer, SeedBox.Text, "the mod with the current seed and options");
+            ModeStatusText.Text = StatusFor(modeReady, modeRandomizer, ModeSeedBox.Text, "this mode");
         }
     }
+
+    private void ShowRandomizerPanel(RandomizerPanel panel, bool show)
+    {
+        panel.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+        if (show)
+        {
+            panel.Show(_lastOutputs);
+        }
+    }
+
+    private static string StatusFor(bool ready, bool randomizer, string seedText, string what) =>
+        !ready ? $"Click Assemble to build {what}."
+        : randomizer ? $"Assembled (seed {seedText.Trim()}). Set up Matt's randomizer with the files below."
+        : $"Ready to launch (seed {seedText.Trim()}). Change the seed or options to assemble again.";
 
     // ---------- Building and launching ----------
 
@@ -368,14 +426,17 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         try
         {
             result = await Task.Run(() => BuildPipeline.Run(ResourcesRoot, seed, options));
+            _lastOutputs = result.Outputs;
             _settings.LastBuiltSeed = result.Seed;
             _settings.LastBuiltOptions = options.ToDictionary(kv => kv.Key, kv => kv.Value);
+            _settings.LastBuildOutputs = result.Outputs;
             SettingsService.Save(_settings);
             _lastBuildFingerprint = Fingerprint(result.Seed, options);
         }
         catch (Exception ex)
         {
             _lastBuildFingerprint = null; // the package on disk may be half-written
+            _lastOutputs = new();
             error = ex.Message;
         }
 

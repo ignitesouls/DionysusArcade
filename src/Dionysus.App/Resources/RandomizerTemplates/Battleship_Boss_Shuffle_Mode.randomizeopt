@@ -1,6 +1,6 @@
 Game: ER
 Version: v0.12.2
-Options: allcraft bossbgm copydrops crashfix customenemy customitem dlcblessing dlckeysilo dlcroundtable dlcstart enemy ignoresize mats maxbb maxflask maxmemslot maxpouch maxwhetblade messmershard:17 nerfgargoyles nerflantern nightday nohand nooutfits nostarting phasehp playerlevel:60 racemode_health racemode_key racemode_scadu racemode_upgrades scale shardreq:7 snowfast sombermode tarnished v16 weaponprogression woodsfast bias:0 seed:2068130225
+Options: allcraft bossbgm copydrops crashfix customenemy customitem dlc dlcblessing dlckeysilo dlcroundtable enemy ignoresize mats maxbb maxflask maxmemslot maxpouch maxwhetblade messmershard:17 nerfgargoyles nerflantern nightday nohand nooutfits nostarting phasehp playerlevel:60 racemode_health racemode_key racemode_scadu racemode_upgrades scale shardreq:7 snowfast sombermode tarnished v16 weaponprogression woodsfast bias:0 seed:1256375831
 EnemyPreset: >+
   Classes:
     Basic: {}
@@ -545,7 +545,8 @@ ItemPreset: >+
       ID: weapon:44000000
     - Name: Jar Cannon
       ID: weapon:44010000
-    Excludes: []
+    Excludes:
+    - Tag: dlc
   - Type: DlcOnlyItems
     Mode: Custom
     Items:
@@ -553,16 +554,6 @@ ItemPreset: >+
       ID: goods:2010000
     - Name: Revered Spirit Ash
       ID: goods:2010100
-    - Name: Golden Seed
-      ID: goods:10010
-    - Name: Sacred Tear
-      ID: goods:10020
-    - Name: Talisman Pouch
-      ID: goods:10040
-    - Name: Memory Stone
-      ID: goods:10030
-    - Group: whetblades
-    - Group: upgradeashes
     - Group: crystaltears
     - Name: Golden Rune [12]
       ID: goods:2911
@@ -613,7 +604,8 @@ ItemPreset: >+
       ID: goods:2002959
     - Name: Golden Rune [11]
       ID: goods:2910
-    Excludes: []
+    Excludes:
+    - Tag: nodlc
   PremiumGroups:
 
   - Type: PremiumShop

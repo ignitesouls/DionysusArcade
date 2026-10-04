@@ -27,4 +27,9 @@ public interface IModule
 
     // Native DLLs, relative to the Mod Engine 3 folder, that this module loads while active.
     IEnumerable<string> Natives(OptionSet options) => Array.Empty<string>();
+
+
+    // Game paths (e.g. "map/mapstudio/m60_50_56_00.msb.dcx") that must not be copied from any pack
+    // while this module is active, for example files that break another tool.
+    IEnumerable<string> ExcludedFiles(OptionSet options) => Array.Empty<string>();
 }

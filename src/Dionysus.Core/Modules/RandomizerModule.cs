@@ -24,6 +24,15 @@ public sealed class RandomizerModule : IModule
             "Which arenas and bosses the Boss Arena Randomizer uses, and how they can be paired."),
     };
 
+    // Pack files that break Matt's randomizer, so they're left out of randomizer builds
+    private static readonly string[] FilesThatBreakTheRandomizer =
+    {
+        "map/mapstudio/m60_50_56_00.msb.dcx",
+        "event/m14_00_00_00.emevd.dcx",
+    };
+
+    public IEnumerable<string> ExcludedFiles(OptionSet options) => FilesThatBreakTheRandomizer;
+
     public bool IsActive(OptionSet options) => options.GetBool("randomizer.enabled");
 
     public void Apply(BuildContext context)

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Dionysus.App.RandomizerPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+    <Border BorderThickness="1" BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
+            CornerRadius="6" Padding="16" Margin="0,0,0,12">
+        <StackPanel>
+            <TextBlock Text="Play through Matt's randomizer" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TextBlock TextWrapping="Wrap" Opacity="0.8" Margin="0,0,0,12"
+                       Text="This build is launched from Matt's Item and Enemy Randomizer, not from Dionysus. Give Matt's randomizer the options file and the mod folder below."/>
+
+            <TextBlock Text="1. Options file" FontWeight="SemiBold"/>
+            <StackPanel Orientation="Horizontal" Margin="0,4,0,12">
+                <TextBlock x:Name="OptionsFileText" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <ui:Button Content="Save options file..." Click="SaveOptionsFile_Click"/>
+            </StackPanel>
+
+            <TextBlock Text="2. Mod folder (contains regulation.bin)" FontWeight="SemiBold"/>
+            <StackPanel Orientation="Horizontal" Margin="0,4,0,12">
+                <ui:TextBox x:Name="ModFolderBox" Width="440" IsReadOnly="True"/>
+                <ui:Button Content="Copy" Margin="8,0,0,0" Click="CopyModFolder_Click"/>
+            </StackPanel>
+
+            <StackPanel x:Name="OverlaySection">
+                <TextBlock Text="3. Overlay" FontWeight="SemiBold"/>
+                <TextBlock TextWrapping="Wrap" Opacity="0.8" Margin="0,4,0,4"
+                           Text="Matt's randomizer doesn't load the overlay by itself. In Matt's randomizer, use &quot;Add dll mod&quot; and select this file:"/>
+                <StackPanel Orientation="Horizontal">
+                    <ui:TextBox x:Name="OverlayBox" Width="440" IsReadOnly="True"/>
+                    <ui:Button Content="Copy" Margin="8,0,0,0" Click="CopyOverlay_Click"/>
+                    <ui:Button Content="Open folder" Margin="8,0,0,0" Click="OpenOverlayFolder_Click"/>
+                </StackPanel>
+            </StackPanel>
+
+            <TextBlock x:Name="PanelStatus" Opacity="0.8" Margin="0,8,0,0" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Border>
+</UserControl>

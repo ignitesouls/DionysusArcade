@@ -1,3 +1,10 @@
 [submodule "dependencies/BossArenaRandomizer"]
 	path = dependencies/BossArenaRandomizer
 	url = https://github.com/ignitesouls/BossArenaRandomizer
+[submodule "dependencies/EldenRingParamsEditor"]
+	path = dependencies/EldenRingParamsEditor
+	url = https://github.com/ignitesouls/EldenRingParamsEditor
+	branch = dionysus
+[submodule "dependencies/UniversalReplacementRandomizer"]
+	path = dependencies/UniversalReplacementRandomizer
+	url = https://github.com/ignitesouls/UniversalReplacementRandomizer

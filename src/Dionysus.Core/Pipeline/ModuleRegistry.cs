@@ -5,8 +5,7 @@ namespace Dionysus.Core.Pipeline;
 
 public static class ModuleRegistry
 {
-    // Modules run in this order. For parity with the old app, keep its order:
-    // graces, starting classes, item shuffle, tweaks, talisman shop, then packs.
+    // Modules run in this order
     public static IReadOnlyList<IModule> All { get; } = new List<IModule>
     {
         new PatchModule(),

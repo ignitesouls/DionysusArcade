@@ -16,7 +16,7 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Dionysus.App/Dionysus.App.csproj" />
-    <Project Path="src/Dionysus.BossArena/Dionysus.BossArena.csproj" />
+    <Project Path="src/Dionysus.Bar/Dionysus.Bar.csproj" />
     <Project Path="src/Dionysus.Core/Dionysus.Core.csproj" />
   </Folder>
   <Folder Name="/tools/">

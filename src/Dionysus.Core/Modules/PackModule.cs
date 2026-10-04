@@ -15,7 +15,7 @@ public sealed class PackModule : IModule
         new BoolOption("packs.incursion", "Incursion", false,
             "Battleship's Incursion event and map files."),
         new BoolOption("packs.cluedo", "Cluedo", false,
-            "Cluedo's event and map files."),
+                        "Cluedo's event and map files, its overlay and RandomizerHelper."),
     };
 
     public bool IsActive(OptionSet options) => Options.Any(o => options.GetBool(o.Key));
@@ -26,5 +26,15 @@ public sealed class PackModule : IModule
     {
         if (options.GetBool("packs.incursion")) yield return "Incursion";
         if (options.GetBool("packs.cluedo")) yield return "Cluedo";
+    }
+
+    // Native DLLs, relative to the Mod Engine 3 folder, that come with each pack
+    public IEnumerable<string> Natives(OptionSet options)
+    {
+        if (options.GetBool("packs.cluedo"))
+        {
+            yield return "CluedoOverlay/er_overlay.dll";
+            yield return "RandomizerHelper/RandomizerHelper.dll";
+        }
     }
 }

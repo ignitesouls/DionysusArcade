@@ -21,12 +21,12 @@ Dionysus Arcade is an Elden Ring modding app for playing a growing collection of
 
 **Major contributors**
 
-- [Ignite Discord](https://discord.gg/ignitesouls): what made this mod possible, brought to you by the Ignite community. Join to play these modes with others and for community events!
-- [LazyHelios](https://www.twitch.tv/lazyhelios): creator and maintainer of Dionysus Arcade.
-- [KC_Brazos](https://www.twitch.tv/kcbrazos): creator of the Cluedo and Battleship modes and their websites, [Elden Cluedo](https://kcbrazos.github.io/Elden-Cluedo/#/) and [Elden Battleship](https://kcbrazos.github.io/Elden-Battleship/).
-- [Psiphicode](https://www.twitch.tv/psiphicode): original creator, longtime maintainer and the genius behind the Athena Randomizer, much of whose code lives on in Dionysus. Also the creator of the Ignite er_overlay.
-- [ItsShura](https://www.twitch.tv/itsshura): creator of VCC, which the Battleship and Cluedo modes are based on, and primary developer of the Boss Arena Randomizer.
-- [Azdomiel](https://www.twitch.tv/azdomiel): creator of Legacy-Locked Bingo.
+- [Ignite Discord](https://discord.gg/ignitesouls): What made this mod possible, brought to you by the Ignite community. Join to play these modes with others and for community events!
+- [LazyHelios](https://www.twitch.tv/lazyhelios): Creator and maintainer of Dionysus Arcade.
+- [KC_Brazos](https://www.twitch.tv/kcbrazos): Creator of the Cluedo and Battleship modes and their websites, [Elden Cluedo](https://kcbrazos.github.io/Elden-Cluedo/#/) and [Elden Battleship](https://kcbrazos.github.io/Elden-Battleship/).
+- [Psiphicode](https://www.twitch.tv/psiphicode): Original creator, longtime maintainer and the genius behind the Athena Randomizer, much of whose code lives on in Dionysus. Also the creator of the Ignite EROverlay.
+- [ItsShura](https://www.twitch.tv/itsshura): Creator of VCC, which the Battleship and Cluedo modes are based on, and primary developer of the Boss Arena Randomizer.
+- [Azdomiel](https://www.twitch.tv/azdomiel): Creator of Legacy-Locked Bingo.
 
 **Athena Randomizer contributors:** [Rambler](https://www.twitch.tv/rambler_ing), [Sprkl](https://www.twitch.tv/sprklmouse), [HooZher](https://www.twitch.tv/hoozher), [Harv](https://www.twitch.tv/beardandthehair), [Nartock](https://www.twitch.tv/nartock_), [Elymis](https://www.twitch.tv/elymis), [Cronys](https://www.twitch.tv/cronys02), [Lemon](https://www.twitch.tv/l3m0_n), [Nexus](https://www.twitch.tv/nexusupnext)
 

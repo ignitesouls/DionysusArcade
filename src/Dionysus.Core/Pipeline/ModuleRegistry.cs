@@ -14,8 +14,10 @@ public static class ModuleRegistry
         new ItemShuffleModule(),
         new TweaksModule(),
         new TalismanShopModule(),
+        new StarlightShopModule(),
         new PackModule(),
         new ModEngineModule(),
         new RandomizerModule(),
+
     };
 }

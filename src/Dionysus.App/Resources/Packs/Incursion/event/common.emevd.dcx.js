@@ -4,7 +4,7 @@
 // @game    Sekiro
 // @string    ""
 // @linked    []
-// @version    3.5
+// @version    3.6.1
 // ==/EMEVD==
 
 $Event(0, Default, function() {
@@ -453,6 +453,7 @@ $Event(0, Default, function() {
     InitializeEvent(0, 11100091, 0);
     InitializeEvent(0, 11100092, 0);
     InitializeEvent(0, 11100093, 0);
+    InitializeEvent(0, 11100095, 0);
     
     // Great Rune Restoration to Ashen Capital
     InitializeEvent(0, 11100094, 191); // Restoring Godrick's Great Rune
@@ -478,6 +479,7 @@ $Event(0, Default, function() {
     //Add Tarnished Edition
     $InitializeEvent(0, 780);
     //InitializeEvent(0, 11120001, 4535, 16000800);     //Rellana Dancing Lion
+    
 });
 
 $Event(50, Default, function() {
@@ -1007,6 +1009,22 @@ $Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
     
     // This event has triggered
     SetEventFlagID(11104088, ON);
+});
+
+// Killing Noble gives Rykard grace
+$Event(11100095, Default, function() {
+    EndIf(ThisEventSlot());
+
+    // 16000850    Godskin Noble Death Flag
+    WaitFor(EventFlag(16000850));
+
+    // 71605    Volcano Manor - Audience Pathway
+    SetEventFlagID(71605, ON);
+
+    // Audience Pathway Grace has been Unlocked
+    DisplayBlinkingMessageWithPriority(30157, 1, false);
+
+    SetThisEventSlot(ON);
 });
 
 

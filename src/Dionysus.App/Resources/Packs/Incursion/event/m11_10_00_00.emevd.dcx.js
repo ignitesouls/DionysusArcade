@@ -4,7 +4,7 @@
 // @game    Sekiro
 // @string    "N:\\GR\\data\\Param\\event\\common_func.emevd\u0000N:\\GR\\data\\Param\\event\\common_macro.emevd\u0000\u0000\u0000\u0000\u0000\u0000"
 // @linked    [0,82]
-// @version    3.5
+// @version    3.6.1
 // ==/EMEVD==
 
 // コンストラクタ -- constructor
@@ -309,6 +309,15 @@ $Event(11100042, Default, function() {
     // Flask of Wondrous Physick
     SetEventFlagID(6700, ON);
     DirectlyGivePlayerItem(ItemType.Goods, 250, 6001, 1);
+    
+    //O Mother
+    AwardGesture(115);
+    
+    //Gaol Keys
+    SetEventFlagID(41027000, ON);
+    SetEventFlagID(41027320, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 2008005, 6001, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 2008006, 6001, ON);
     
     //Give Torrent Skins
     DirectlyGivePlayerItem(ItemType.Goods, 2009600, 6001, ON);

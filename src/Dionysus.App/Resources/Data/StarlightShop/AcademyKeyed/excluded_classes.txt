@@ -1,0 +1,17 @@
+# Weapon classes the Starlight Shop never offers in this format
+Whips
+Torches
+Small Shields
+Medium Shields
+Greatshields
+Glintstone Staffs
+Sacred Seals
+Light Bows
+Bows
+Greatbows
+Crossbows
+Ballistas
+Perfume Bottles
+Thrusting Shields
+Throwing Blades
+Beast Claws

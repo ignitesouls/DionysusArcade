@@ -4,7 +4,7 @@
 // @game    Sekiro
 // @string    "N:\\GR\\data\\Param\\event\\common_func.emevd\u0000N:\\GR\\data\\Param\\event\\common_macro.emevd\u0000\u0000\u0000\u0000\u0000\u0000"
 // @linked    [0,82]
-// @version    3.5
+// @version    3.6.1
 // ==/EMEVD==
 
 // コンストラクタ -- constructor
@@ -1084,22 +1084,22 @@ $Event(11002800, Restart, function() {
     if (PlayerIsInOwnWorld()) {
         SetEventFlagID(61104, ON);
     }
-    if (!EventFlag(10000850)) {
-        SetEventFlagID(10000850, ON);
-    }
-    if (!EventFlag(9100)) {
-        SetEventFlagID(9100, ON);
-    }
-    if (PlayerIsInOwnWorld()) {
-        if (!EventFlag(61100)) {
-            SetEventFlagID(61100, ON);
-        }
-    }
-    if (!EventFlag(10000850)) {
-        DisableCharacter(10000850);
-        DisableCharacterCollision(10000850);
-        ForceCharacterDeath(10000850, false);
-    }
+//    if (!EventFlag(10000850)) {
+//            SetEventFlagID(10000850, ON);
+//    }
+//    if (!EventFlag(9100)) {
+//            SetEventFlagID(9100, ON);
+//    }
+//    if (PlayerIsInOwnWorld()) {
+//            if (!EventFlag(61100)) {
+//                SetEventFlagID(61100, ON);
+//        }
+//    }
+//    if (!EventFlag(10000850)) {
+//            DisableCharacter(10000850);
+//        DisableCharacterCollision(10000850);
+//        ForceCharacterDeath(10000850, false);
+//    }
     EndIf(!PlayerIsInOwnWorld());
     SetPlayerRespawnPoint(11002020);
     SaveRequest();

@@ -4,7 +4,7 @@
 // @game    Sekiro
 // @string    "N:\\GR\\data\\Param\\event\\common_func.emevd\u0000N:\\GR\\data\\Param\\event\\common_macro.emevd\u0000\u0000\u0000\u0000\u0000\u0000"
 // @linked    [0,82]
-// @version    3.5
+// @version    3.6.1
 // ==/EMEVD==
 
 // コンストラクタ -- constructor
@@ -17,7 +17,7 @@ $Event(0, Default, function() {
     $InitializeCommonEvent(0, 90005793, 1047560180, 1047562181, 1047562182, 1047560180, 1047562180, 1047562182, 0);
 
     //Original Spawn Point Set for Warp from '12052021' to '12052020'
-    $InitializeEvent(0, 1290300001, 1047561500, 12, 5, 0, 0, 12052020, 0, 1047562501, 1047562502, 1047562503, 0, 0, 0, 0);
+    $InitializeEvent(0, 1290300001, 1047561500, 12, 5, 0, 0, 12052021, 0, 1047562501, 1047562502, 1047562503, 0, 0, 0, 0);
 });
 
 /* 
@@ -27,7 +27,7 @@ The Only Difference comes from looking for EventFlag(1036290000)
 */
 $Event(1290300001, Restart, function(assetEntityId, areaId, blockId, regionId, indexId, initialAreaEntityId, subareaNamePopupMessageId, eventFlagId, eventFlagId2, eventFlagId3, eventFlagId4, messageId, timeSeconds, timeSeconds2) {
     EndIf(!PlayerIsInOwnWorld());
-    WaitFor(EventFlag(1036290000)); //Wait For Rose Church Monument to be Examined
+    //WaitFor(EventFlag(1036290000)); //Wait For Rose Church Monument to be Examined
     SetEventFlagID(eventFlagId2, OFF);
     SetEventFlagID(eventFlagId3, OFF);
     if (!ThisEventSlot()) {

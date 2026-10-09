@@ -2,7 +2,10 @@
   "ProjectName": "BattleshipBase_Claude",
   "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
   "GameType": 8,
-  "PinnedParams": [],
+  "PinnedParams": [
+    "EquipParamAccessory",
+    "EquipParamGoods"
+  ],
   "PinnedRows": {},
   "PinnedFields": {},
   "UseLooseParams": false,

@@ -31,3 +31,6 @@ ID,Name,Cost,Type,ParamType,EquipType,EventFlagID,SellQuantity
 11029,Magic-Shrouding Cracked Tear,10000,Physick Tear,Good,3,65290,1
 11030,Lightning-Shrouding Cracked Tear,10000,Physick Tear,Good,3,65300,1
 11031,Holy-Shrouding Cracked Tear,10000,Physick Tear,Good,3,65310,1
+"2011000","Viridian Hidden Tear","40000","Physick Tear","Good","3","65400","1"
+"2011040","Oil-Soaked Tear","20000","Physick Tear","Good","3","65440","1"
+"2011050","Bloodsucking Cracked Tear","200000","Physick Tear","Good","3","65450","1"

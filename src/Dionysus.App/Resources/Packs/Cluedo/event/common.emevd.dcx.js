@@ -4,7 +4,7 @@
 // @game    Sekiro
 // @string    ""
 // @linked    []
-// @version    3.5
+// @version    3.6.1
 // ==/EMEVD==
 
 $Event(0, Default, function() {
@@ -776,6 +776,9 @@ $Event(11100084, Default, function() {
         76551, // Consecrated     - Inner Consecrated Snowfield
         71234, // Deeproot Depths - Nameless Eternal City
         71216, // Lake of Rot     - Lake of Rot Shoreside
+        76502, // Forbidden Lands - Grand Lift of Rold
+        71222, // Siofra River    - Siofra River Bank
+        71271, // Nokron          - Nokron, Eternal City
     ];
     
     for (let i = 0; i < progressiveGracesTier1.length; i++) {

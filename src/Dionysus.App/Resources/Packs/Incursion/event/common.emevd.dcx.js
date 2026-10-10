@@ -475,6 +475,63 @@ $Event(0, Default, function() {
     InitializeEvent(8, 11120000, 1252380800, 16000800, 12090800);   //Radahn Rykard   || Regal
     InitializeEvent(9, 11120000, 12040800, 16000800, 12090800);     //Astel Rykard    || Regal
     InitializeEvent(10, 11120000, 12040800, 16000800, 11050800);    //Astel Rykard    || Hoarah Loux
+ 
+    // Remembrance pairs for PCR unlock
+    InitializeEvent(0, 11120001, 2046460800, 2048440800); // Dancing Lion + Rellana
+    InitializeEvent(1, 11120001, 2046460800, 22000800); // Dancing Lion + Putrescent Knight
+    InitializeEvent(2, 11120001, 2046460800, 2049480800); // Dancing Lion + Commander Gaius
+    InitializeEvent(3, 11120001, 2046460800, 2050480800); // Dancing Lion + Scadutree Avatar
+    InitializeEvent(4, 11120001, 2046460800, 21010800); // Dancing Lion + Messmer
+    InitializeEvent(5, 11120001, 2046460800, 2044450800); // Dancing Lion + Romina
+    InitializeEvent(6, 11120001, 2046460800, 25000800); // Dancing Lion + Metyr
+    InitializeEvent(7, 11120001, 2046460800, 28000800); // Dancing Lion + Midra
+    InitializeEvent(8, 11120001, 2046460800, 2054390800); // Dancing Lion + Bayle
+    InitializeEvent(9, 11120001, 2046460800, 20010800); // Dancing Lion + Consort Radahn
+    InitializeEvent(10, 11120001, 2048440800, 22000800); // Rellana + Putrescent Knight
+    InitializeEvent(11, 11120001, 2048440800, 2049480800); // Rellana + Commander Gaius
+    InitializeEvent(12, 11120001, 2048440800, 2050480800); // Rellana + Scadutree Avatar
+    InitializeEvent(13, 11120001, 2048440800, 21010800); // Rellana + Messmer
+    InitializeEvent(14, 11120001, 2048440800, 2044450800); // Rellana + Romina
+    InitializeEvent(15, 11120001, 2048440800, 25000800); // Rellana + Metyr
+    InitializeEvent(16, 11120001, 2048440800, 28000800); // Rellana + Midra
+    InitializeEvent(17, 11120001, 2048440800, 2054390800); // Rellana + Bayle
+    InitializeEvent(18, 11120001, 2048440800, 20010800); // Rellana + Consort Radahn
+    InitializeEvent(19, 11120001, 22000800, 2049480800); // Putrescent Knight + Commander Gaius
+    InitializeEvent(20, 11120001, 22000800, 2050480800); // Putrescent Knight + Scadutree Avatar
+    InitializeEvent(21, 11120001, 22000800, 21010800); // Putrescent Knight + Messmer
+    InitializeEvent(22, 11120001, 22000800, 2044450800); // Putrescent Knight + Romina
+    InitializeEvent(23, 11120001, 22000800, 25000800); // Putrescent Knight + Metyr
+    InitializeEvent(24, 11120001, 22000800, 28000800); // Putrescent Knight + Midra
+    InitializeEvent(25, 11120001, 22000800, 2054390800); // Putrescent Knight + Bayle
+    InitializeEvent(26, 11120001, 22000800, 20010800); // Putrescent Knight + Consort Radahn
+    InitializeEvent(27, 11120001, 2049480800, 2050480800); // Commander Gaius + Scadutree Avatar
+    InitializeEvent(28, 11120001, 2049480800, 21010800); // Commander Gaius + Messmer
+    InitializeEvent(29, 11120001, 2049480800, 2044450800); // Commander Gaius + Romina
+    InitializeEvent(30, 11120001, 2049480800, 25000800); // Commander Gaius + Metyr
+    InitializeEvent(31, 11120001, 2049480800, 28000800); // Commander Gaius + Midra
+    InitializeEvent(32, 11120001, 2049480800, 2054390800); // Commander Gaius + Bayle
+    InitializeEvent(33, 11120001, 2049480800, 20010800); // Commander Gaius + Consort Radahn
+    InitializeEvent(34, 11120001, 2050480800, 21010800); // Scadutree Avatar + Messmer
+    InitializeEvent(35, 11120001, 2050480800, 2044450800); // Scadutree Avatar + Romina
+    InitializeEvent(36, 11120001, 2050480800, 25000800); // Scadutree Avatar + Metyr
+    InitializeEvent(37, 11120001, 2050480800, 28000800); // Scadutree Avatar + Midra
+    InitializeEvent(38, 11120001, 2050480800, 2054390800); // Scadutree Avatar + Bayle
+    InitializeEvent(39, 11120001, 2050480800, 20010800); // Scadutree Avatar + Consort Radahn
+    InitializeEvent(40, 11120001, 21010800, 2044450800); // Messmer + Romina
+    InitializeEvent(41, 11120001, 21010800, 25000800); // Messmer + Metyr
+    InitializeEvent(42, 11120001, 21010800, 28000800); // Messmer + Midra
+    InitializeEvent(43, 11120001, 21010800, 2054390800); // Messmer + Bayle
+    InitializeEvent(44, 11120001, 21010800, 20010800); // Messmer + Consort Radahn
+    InitializeEvent(45, 11120001, 2044450800, 25000800); // Romina + Metyr
+    InitializeEvent(46, 11120001, 2044450800, 28000800); // Romina + Midra
+    InitializeEvent(47, 11120001, 2044450800, 2054390800); // Romina + Bayle
+    InitializeEvent(48, 11120001, 2044450800, 20010800); // Romina + Consort Radahn
+    InitializeEvent(49, 11120001, 25000800, 28000800); // Metyr + Midra
+    InitializeEvent(50, 11120001, 25000800, 2054390800); // Metyr + Bayle
+    InitializeEvent(51, 11120001, 25000800, 20010800); // Metyr + Consort Radahn
+    InitializeEvent(52, 11120001, 28000800, 2054390800); // Midra + Bayle
+    InitializeEvent(53, 11120001, 28000800, 20010800); // Midra + Consort Radahn
+    InitializeEvent(54, 11120001, 2054390800, 20010800); // Bayle + Consort Radahn
 
     //Add Tarnished Edition
     $InitializeEvent(0, 780);
@@ -778,6 +835,9 @@ $Event(11100084, Default, function() {
         76551, // Consecrated     - Inner Consecrated Snowfield
         71234, // Deeproot Depths - Nameless Eternal City
         71216, // Lake of Rot     - Lake of Rot Shoreside
+        76500, // Forbidden Lands - Forbidden Lands
+        76501, // Mttps           - Zamor Ruins
+        71222, // Siofria River   - Siofra River Bank
     ];
     
     for (let i = 0; i < progressiveGracesTier1.length; i++) {
@@ -793,7 +853,7 @@ $Event(11100084, Default, function() {
     // SetThisEventSlot(ON);
 });
 
-// Unlock War-Dead Catacombs grace (when Radahn is defeated)
+// Unlock graces when Radahn is defeated
 $Event(11100085, Default, function() {
     EndIf(ThisEventSlot());
     // 9130 is the event flag for "Defeated Starscourge Radahn"
@@ -803,6 +863,7 @@ $Event(11100085, Default, function() {
         //        Area             - Grace Name
         //        ----               ----------
         73016, // Caelid           - Wardead Catacombs
+        71271, // Nokron           - Nokron, Eternal City
     ];
     
     for (let i = 0; i < progressiveGracesTier1.length; i++) {
@@ -833,6 +894,12 @@ $Event(11100086, Default, function() {
         76902, // Scadu Altus      - Moorth Ruins
         //76833, // Cerulean Coast   - The Fissure
         72801, // Midra's Manse    - Manse Hall
+        76914, // [Rauh Base] Ravine North
+        76803, // [Gravesite Plain] Main Gate Cross
+        76918, // [Scadu Altus] Recluses' River Downstream
+        72106, // [Shadow Keep, Church District] Church District Entrance
+        76906, // [Scadu Altus] Cathedral of Manus Metyr
+        76941, // [Ancient Ruins of Rauh] Rauh Ancient Ruins, East
         
         // 76916, // Scadu Altus      - Castle Watering Hole
         // 76841, // Charo's          - Charo's Hidden Grave
@@ -866,7 +933,10 @@ $Event(11100087, Default, function() {
         // 76851, // Jagged Peak          - Jagged Peak Mountainside
         76850, // Jagged Peak             - Foot of the Jagged Peak
         76841, // Charo's Hidden Grave    - Charo's Hidden Grave
-        76833, // Cerulean Coast          - The Fissure
+        //76833, // Cerulean Coast          - The Fissure
+        72202, // [Stone Coffin Fissure] Fissure Cross
+        76852, // [Jagged Peak] Jagged Peak Summit
+        
     ];
     
     for (let i = 0; i < progressiveGracesTier1.length; i++) {
@@ -894,6 +964,7 @@ $Event(11100088, Default, function() {
     SetThisEventSlot(ON);    
 });
 
+// Sealing Tree
 $Event(11100089, Default, function() {
     EndIf(ThisEventSlot());
     
@@ -975,6 +1046,7 @@ $Event(11100093, Default, function() {
     DisplayBlinkingMessageWithPriority(30154, 1, false);
     
     SetEventFlagID(71230, ON);
+   
     
     SetThisEventSlot(ON);
 });
@@ -985,6 +1057,22 @@ $Event(11100094, Default, function(restoredGreatRune) {
     EndIf(EventFlag(71124));
     SetEventFlagID(71124, ON);
     DisplayBlinkingMessageWithPriority(30151, 1, false);
+});
+
+// Killing Noble gives Rykard grace
+$Event(11100095, Default, function() {
+    EndIf(ThisEventSlot());
+
+    // 16000850    Godskin Noble Death Flag
+    WaitFor(EventFlag(16000850));
+
+    // 71605    Volcano Manor - Audience Pathway
+    SetEventFlagID(71605, ON);
+
+    // Audience Pathway Grace has been Unlocked
+    DisplayBlinkingMessageWithPriority(30157, 1, false);
+
+    SetThisEventSlot(ON);
 });
 
 $Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
@@ -1011,22 +1099,27 @@ $Event(11120000, Default, function(firstMembie, secondMembie, singleMembie) {
     SetEventFlagID(11104088, ON);
 });
 
-// Killing Noble gives Rykard grace
-$Event(11100095, Default, function() {
-    EndIf(ThisEventSlot());
 
-    // 16000850    Godskin Noble Death Flag
-    WaitFor(EventFlag(16000850));
-
-    // 71605    Volcano Manor - Audience Pathway
-    SetEventFlagID(71605, ON);
-
-    // Audience Pathway Grace has been Unlocked
-    DisplayBlinkingMessageWithPriority(30157, 1, false);
-
-    SetThisEventSlot(ON);
+// Any 2 DLC membies gives PCR grace
+$Event(11120001, Default, function(firstMembie, secondMembie) {
+    EndIf(EventFlag(72016));
+    
+    WaitFor((EventFlag(firstMembie) && EventFlag(secondMembie)) || EventFlag(72016));
+    
+    // For any other live events that are waiting (can this even trigger?)
+    if (EventFlag(72016)) {
+      EndEvent();
+    }
+    
+    // 72016   Enir-Ilim - Divine Gate Front Staircase
+    SetEventFlagID(72016, ON);
+    
+    // The sealing tree is burned
+    SetEventFlagID(330, ON);
+    
+    // The Divine Gate Front Staircase grace was unlocked
+    DisplayBlinkingMessageWithPriority(30075, 1, false);
 });
-
 
 $Event(130, Default, function(X0_4) {
     EndIf(ThisEventSlot());

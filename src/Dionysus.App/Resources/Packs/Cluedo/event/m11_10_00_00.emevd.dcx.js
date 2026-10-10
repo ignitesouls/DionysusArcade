@@ -4,7 +4,7 @@
 // @game    Sekiro
 // @string    "N:\\GR\\data\\Param\\event\\common_func.emevd\u0000N:\\GR\\data\\Param\\event\\common_macro.emevd\u0000\u0000\u0000\u0000\u0000\u0000"
 // @linked    [0,82]
-// @version    3.5
+// @version    3.6.1
 // ==/EMEVD==
 
 // コンストラクタ -- constructor
@@ -265,6 +265,10 @@ $Event(11100042, Default, function() {
     
     // Cursemark of Death 
     DirectlyGivePlayerItem(ItemType.Goods, 8191, 6001, 1);
+    
+    // Rold Medallion
+    SetEventFlagID(400001, ON);
+    DirectlyGivePlayerItem(ItemType.Goods, 8107, 6001, 1);
     
     // talisman pouches
     SetEventFlagID(60500, ON);

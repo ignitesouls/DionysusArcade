@@ -20,7 +20,7 @@
         "item_shuffle.perfume_bottles": true,
         "tweaks.remove_roundtable_fist_check": false,
         "tweaks.seluvis_scorpion_charm": true,
-        "tweaks.lock_serpent_hunter": true,
+        "tweaks.lock_serpent_hunter": false,
         "talisman_shop.enabled": true,
         "talisman_shop.randomized": true,
         "packs.incursion": true,

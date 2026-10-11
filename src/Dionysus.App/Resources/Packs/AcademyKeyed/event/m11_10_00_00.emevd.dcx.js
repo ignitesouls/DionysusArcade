@@ -303,6 +303,11 @@ $Event(11100042, Default, function() {
     SetEventFlagID(6700, ON);
     DirectlyGivePlayerItem(ItemType.Goods, 250, 6001, 1);
     
+    // Starlight Shards
+    for (let i = 0; i < 10; i++) {
+        DirectlyGivePlayerItem(ItemType.Goods, 1290, 6001, 1);
+    }
+    
     //Give Torrent Skins
     DirectlyGivePlayerItem(ItemType.Goods, 2009600, 6001, ON);
     DirectlyGivePlayerItem(ItemType.Goods, 2009610, 6001, ON);

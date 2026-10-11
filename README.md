@@ -35,6 +35,7 @@ Dionysus Arcade is an Elden Ring modding app for playing a growing collection of
 - [thefifthmatt](https://www.twitch.tv/thefifthmatt): creator of the Item & Enemy Randomizer, RandomizerCrashFix.dll and RandomizerHelper.dll.
 - [Sparklemouse](https://www.twitch.tv/sprklmouse): creator of the Elden Battleship logo.
 - [Forsa](https://www.twitch.tv/forsa): creator of the original chr file with the stand-up animations removed and fast grace-lighting animations.
+- [Ebunny](https://pixabay.com/users/ebunny-22480773/): creator of the Battleship Theme Song
 
 **Athena Randomizer contributors:** [Rambler](https://www.twitch.tv/rambler_ing), [Sprkl](https://www.twitch.tv/sprklmouse), [HooZher](https://www.twitch.tv/hoozher), [Harv](https://www.twitch.tv/beardandthehair), [Nartock](https://www.twitch.tv/nartock_), [Elymis](https://www.twitch.tv/elymis), [Cronys](https://www.twitch.tv/cronys02), [Lemon](https://www.twitch.tv/l3m0_n), [Nexus](https://www.twitch.tv/nexusupnext)
 

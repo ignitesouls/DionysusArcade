@@ -94,6 +94,9 @@
             <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/forsa">Forsa</Hyperlink></TextBlock>
             <TextBlock Style="{StaticResource Body}">Creator of the original chr file with the stand-up animations removed and fast grace-lighting animations.</TextBlock>
 
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://pixabay.com/users/ebunny-22480773/">Ebunny</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator of the Battleship Theme Song.</TextBlock>            
+            
             <!-- Athena contributors -->
             <TextBlock Style="{StaticResource Heading}" Text="Athena Randomizer contributors"/>
             <TextBlock Style="{StaticResource Body}">

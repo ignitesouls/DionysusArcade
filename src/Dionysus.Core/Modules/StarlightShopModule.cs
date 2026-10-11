@@ -96,6 +96,7 @@ public sealed class StarlightShopModule : IModule
             "Which format's talisman, physick tear, armor and free item lists to use (folders in Data/StarlightShop)."),
         new IntOption("starlight.weapon_count", "Weapons", 3, 0, 10),
         new IntOption("starlight.weapon_cost", "Weapon price (shards)", 5, 0, 99),
+        new IntOption("starlight.item_cost", "Talisman and physick tear price (shards)", 1, 0, 99),
         new IntOption("starlight.max_levels_off", "Max levels from wieldable", 8, 1, 99,
             "Only weapons fewer than this many levels from wieldable at rune level 1 can appear."),
         new IntOption("starlight.talisman_count", "Talismans", 2, 0, 20),
@@ -149,10 +150,10 @@ public sealed class StarlightShopModule : IModule
         // Physick tears and talismans: a seeded pick from the format's curated lists
         flag = AddStarlightItems(editor, StarlightTearsFirstRow, flag,
             CsvReaderUtils.Read<ShopItemModel>(Path.Combine(formatData, "physick_tears.csv")),
-            o.GetInt("starlight.physick_count"), context.Rng("starlight_tears"), report);
+            o.GetInt("starlight.physick_count"), o.GetInt("starlight.item_cost"), context.Rng("starlight_tears"), report);
         AddStarlightItems(editor, StarlightTalismansFirstRow, flag,
             CsvReaderUtils.Read<ShopItemModel>(Path.Combine(formatData, "talismans.csv")),
-            o.GetInt("starlight.talisman_count"), context.Rng("starlight_talismans"), report);
+            o.GetInt("starlight.talisman_count"), o.GetInt("starlight.item_cost"), context.Rng("starlight_talismans"), report);
 
         // ---- Runes shop: free armor sets and the format's free items ----
 
@@ -256,7 +257,7 @@ public sealed class StarlightShopModule : IModule
     }
 
     private static uint AddStarlightItems(ParamsEditor editor, int firstRow, uint flag, List<ShopItemModel> pool,
-        int count, Random rng, List<string> report)
+        int count, int price, Random rng, List<string> report)
     {
         int row = firstRow;
         foreach (ShopItemModel item in RandomPick.From(pool, count, rng))
@@ -264,14 +265,11 @@ public sealed class StarlightShopModule : IModule
             uint stockFlag = item.EventFlagID ?? flag;
             if (item.EventFlagID == null) flag += FlagStep;
             AddRow(editor, row++, $"[Starlight Shop - {item.Type}] {item.Name}", item.ID, item.EquipType,
-                StarlightShardCostType, ShardPrice(item.Cost), stockFlag, StarlightMenuTitleTextId, item.SellQuantity);
+                StarlightShardCostType, price, stockFlag, StarlightMenuTitleTextId, item.SellQuantity);
             report.Add(item.Name);
         }
         return flag;
     }
-
-    // Athena's pricing: an item's usual rune price decides whether it costs 1, 2 or 3 shards
-    private static int ShardPrice(int runeCost) => runeCost > 40000 ? 3 : runeCost > 20000 ? 2 : 1;
 
     private static void AddRow(ParamsEditor editor, int row, string name, int equipId, byte equipType,
         byte costType, int price, uint stockFlag, int? menuTextId, short sellQuantity = 1)

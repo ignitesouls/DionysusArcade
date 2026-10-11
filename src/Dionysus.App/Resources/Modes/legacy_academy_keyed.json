@@ -5,6 +5,7 @@
     "options": {
         "me3.stutter_fix": true,
         "me3.crash_fix": true,
+        "me3.overlay": false,
         "packs.academy_keyed": true,
         "starting_classes.enabled": true,
         "starting_classes.stat_mode": "Rune level 1 (all stats 10)",

@@ -28,14 +28,18 @@ Dionysus Arcade is an Elden Ring modding app for playing a growing collection of
 - [ItsShura](https://www.twitch.tv/itsshura): Creator of VCC, which the Battleship and Cluedo modes are based on, and primary developer of the Boss Arena Randomizer.
 - [Azdomiel](https://www.twitch.tv/azdomiel): Creator of Legacy-Locked Bingo.
 
+
+**Other contributors**
+
+- [Wospins](https://www.twitch.tv/wospins): creator of menuinputdelayfix.dll, which was later incorporated into RandomizerCrashFix.dll.
+- [thefifthmatt](https://www.twitch.tv/thefifthmatt): creator of the Item & Enemy Randomizer, RandomizerCrashFix.dll and RandomizerHelper.dll.
+- [Sparklemouse](https://www.twitch.tv/sprklmouse): creator of the Elden Battleship logo.
+- [Forsa](https://www.twitch.tv/forsa): creator of the original chr file with the stand-up animations removed and fast grace-lighting animations.
+
 **Athena Randomizer contributors:** [Rambler](https://www.twitch.tv/rambler_ing), [Sprkl](https://www.twitch.tv/sprklmouse), [HooZher](https://www.twitch.tv/hoozher), [Harv](https://www.twitch.tv/beardandthehair), [Nartock](https://www.twitch.tv/nartock_), [Elymis](https://www.twitch.tv/elymis), [Cronys](https://www.twitch.tv/cronys02), [Lemon](https://www.twitch.tv/l3m0_n), [Nexus](https://www.twitch.tv/nexusupnext)
 
 Dionysus also builds on the wider FromSoftware modding community's tools; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## License
 
-Copyright (C) 2026 LazyHelios and Dionysus Arcade contributors.
-
 Dionysus Arcade is free software, licensed under the [GNU General Public License v3.0 only](LICENSE). Third-party components are listed with their licenses in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-Dionysus Arcade is an unofficial fan project. It is not affiliated with or endorsed by FromSoftware or Bandai Namco. ELDEN RING is a trademark of Bandai Namco Entertainment Inc.

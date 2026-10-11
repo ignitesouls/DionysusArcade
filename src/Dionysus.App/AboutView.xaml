@@ -70,14 +70,29 @@
             <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/psiphicode">Psiphicode</Hyperlink></TextBlock>
             <TextBlock Style="{StaticResource Body}">
                 Original creator, longtime maintainer and the genius behind the Athena Randomizer, much of whose
-                code lives on in Dionysus. Also the creator of the Ignite er_overlay.
+                code lives on in Dionysus. Also the creator of the Ignite EROverlay.
             </TextBlock>
 
             <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/itsshura">ItsShura</Hyperlink></TextBlock>
-            <TextBlock Style="{StaticResource Body}">Creator of VCC, which the Battleship and Cluedo modes are based on.</TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator of VCC, which the Battleship and Cluedo modes are based on, as well the primary developer behind the Boss Arena Randomizer.</TextBlock>
 
             <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/azdomiel">Azdomiel</Hyperlink></TextBlock>
             <TextBlock Style="{StaticResource Body}">Creator of Legacy-Locked Bingo.</TextBlock>
+
+            <!-- Asset contributors -->
+            <TextBlock Style="{StaticResource Heading}" Text="Other contributors"/>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/wospins">Wospins</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator of menuinputdelayfix.dll, which was later incorporated into RandomizerCrashFix.dll.</TextBlock>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/thefifthmatt">thefifthmatt</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator of Item and Enemy Randomizer, RandomizerCrashFix.dll and RandomizerHelper.dll.</TextBlock>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/sprklmouse">Sparklemouse</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator of the Elden Battleship logo among many others for the Ignite Community.</TextBlock>
+
+            <TextBlock Style="{StaticResource CreditName}"><Hyperlink NavigateUri="https://www.twitch.tv/forsa">Forsa</Hyperlink></TextBlock>
+            <TextBlock Style="{StaticResource Body}">Creator of the original chr file with the stand-up animations removed and fast grace-lighting animations.</TextBlock>
 
             <!-- Athena contributors -->
             <TextBlock Style="{StaticResource Heading}" Text="Athena Randomizer contributors"/>
@@ -86,7 +101,6 @@
             </TextBlock>
             <TextBlock Style="{StaticResource Body}" Margin="0,6,0,0">
                 <Hyperlink NavigateUri="https://www.twitch.tv/rambler_ing">Rambler</Hyperlink> &#183;
-                <Hyperlink NavigateUri="https://www.twitch.tv/sprklmouse">Sprkl</Hyperlink> &#183;
                 <Hyperlink NavigateUri="https://www.twitch.tv/hoozher">HooZher</Hyperlink> &#183;
                 <Hyperlink NavigateUri="https://www.twitch.tv/beardandthehair">Harv</Hyperlink> &#183;
                 <Hyperlink NavigateUri="https://www.twitch.tv/nartock_">Nartock</Hyperlink> &#183;

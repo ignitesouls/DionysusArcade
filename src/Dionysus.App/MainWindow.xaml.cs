@@ -24,6 +24,8 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     // For each option key: a function that reads its control's value, and one that sets it
     private readonly Dictionary<string, Func<object?>> _optionReaders = new();
     private readonly Dictionary<string, Action<object>> _optionWriters = new();
+    // Values of options the Custom tab doesn't show, kept from the loaded mode or profile
+    private readonly Dictionary<string, object?> _hiddenValues = new();
 
     private List<Preset> _presets = new();
 
@@ -83,6 +85,16 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
         foreach (IModule module in ModuleRegistry.All)
         {
+            // Hidden modules get no controls, but keep their values for builds and profiles
+            if (!module.ShowInCustom)
+            {
+                foreach (OptionDefinition option in module.Options)
+                {
+                    _hiddenValues[option.Key] = current.Values[option.Key];
+                }
+                continue;
+            }
+
             var group = new StackPanel { Margin = new Thickness(8) };
 
             foreach (OptionDefinition option in module.Options)
@@ -105,6 +117,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         OptionsPanel.Children.Clear();
         _optionReaders.Clear();
         _optionWriters.Clear();
+        _hiddenValues.Clear();
         BuildOptionsPanel(values);
         UpdateButtons();
     }
@@ -165,10 +178,19 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     private static object? Tip(OptionDefinition option) =>
         string.IsNullOrEmpty(option.Description) ? null : option.Description;
 
-    private Dictionary<string, object?> CurrentCustomOptions() =>
-        _optionReaders.ToDictionary(kv => kv.Key, kv => kv.Value());
+    // Everything the Custom tab would build: the visible controls plus the hidden modules' values
+    private Dictionary<string, object?> CurrentCustomOptions()
+    {
+        Dictionary<string, object?> values = _optionReaders.ToDictionary(kv => kv.Key, kv => kv.Value());
+        foreach (var (key, value) in _hiddenValues)
+        {
+            values[key] = value;
+        }
+        return values;
+    }
 
-    // Puts a full set of option values into the controls. Anything not listed gets its default.
+    // Puts a full set of option values into the controls (or, for hidden modules, into the kept values).
+    // Anything not listed gets its default.
     private void ApplyOptions(IReadOnlyDictionary<string, object?> values)
     {
         var resolved = new OptionSet(ModuleRegistry.All.SelectMany(m => m.Options), values);
@@ -178,7 +200,12 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
             {
                 write(value);
             }
+            else
+            {
+                _hiddenValues[key] = value;
+            }
         }
+        UpdateButtons();
     }
 
     private void ImportTemplateButton_Click(object sender, RoutedEventArgs e)
@@ -375,6 +402,10 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         ShowRandomizerPanel(CustomRandomizerPanel, customReady && customRandomizer && haveRandomizerOutput);
         ShowRandomizerPanel(ModeRandomizerPanel, modeReady && modeRandomizer && haveRandomizerOutput);
 
+        bool haveLinks = LinksPanel.HasLinks(_lastOutputs);
+        ShowLinksPanel(CustomLinksPanel, customReady && haveLinks);
+        ShowLinksPanel(ModeLinksPanel, modeReady && haveLinks);
+
         SeedBox.IsEnabled = !_busy;
         ModeSeedBox.IsEnabled = !_busy;
         OptionsPanel.IsEnabled = !_busy;
@@ -388,6 +419,15 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     }
 
     private void ShowRandomizerPanel(RandomizerPanel panel, bool show)
+    {
+        panel.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+        if (show)
+        {
+            panel.Show(_lastOutputs);
+        }
+    }
+
+    private void ShowLinksPanel(LinksPanel panel, bool show)
     {
         panel.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
         if (show)

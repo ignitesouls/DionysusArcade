@@ -13,6 +13,9 @@ public sealed class ItemShuffleModule : IModule
     public string DisplayName => "Item Shuffle";
     public string Category => "Items";
 
+    // Not offered in the Custom tab for now; its values come from the chosen mode
+    public bool ShowInCustom => false;
+
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
         new BoolOption("item_shuffle.spells", "Shuffle spells", false,

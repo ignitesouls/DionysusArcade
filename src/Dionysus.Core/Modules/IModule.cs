@@ -32,4 +32,9 @@ public interface IModule
     // Game paths (e.g. "map/mapstudio/m60_50_56_00.msb.dcx") that must not be copied from any pack
     // while this module is active, for example files that break another tool.
     IEnumerable<string> ExcludedFiles(OptionSet options) => Array.Empty<string>();
+
+
+    // Whether the Custom tab offers this module's options. Hidden modules still work:
+    // their values come from the chosen mode or profile.
+    bool ShowInCustom => true;
 }

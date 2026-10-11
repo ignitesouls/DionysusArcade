@@ -11,6 +11,9 @@ public sealed class TweaksModule : IModule
     public string DisplayName => "Tweaks";
     public string Category => "Tweaks";
 
+    // Not offered in the Custom tab for now; its values come from the chosen mode
+    public bool ShowInCustom => false;
+
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
         new BoolOption("tweaks.remove_roundtable_fist_check", "Remove Roundtable fist check", false,

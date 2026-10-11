@@ -1,0 +1,8 @@
+﻿<UserControl x:Class="Dionysus.App.LinksPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="0,0,0,12">
+        <TextBlock Text="Links" FontWeight="SemiBold" Margin="0,0,0,4"/>
+        <StackPanel x:Name="LinkList"/>
+    </StackPanel>
+</UserControl>

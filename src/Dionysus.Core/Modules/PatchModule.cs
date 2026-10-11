@@ -11,6 +11,9 @@ public sealed class PatchModule : IModule
     public string DisplayName => "Patches";
     public string Category => "Patches";
 
+    // Not offered in the Custom tab for now; its values come from the chosen mode
+    public bool ShowInCustom => false;
+
     public IReadOnlyList<OptionDefinition> Options { get; } = new List<OptionDefinition>
     {
         new BoolOption("patches.battleship_base", "Battleship base changes", false,

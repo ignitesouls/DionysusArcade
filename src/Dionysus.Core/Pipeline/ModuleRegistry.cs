@@ -16,6 +16,7 @@ public static class ModuleRegistry
         new TalismanShopModule(),
         new StarlightShopModule(),
         new PackModule(),
+        new AbsolootPowersModule(),
         new ModEngineModule(),
         new RandomizerModule(),
 

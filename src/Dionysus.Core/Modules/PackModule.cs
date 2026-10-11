@@ -16,6 +16,12 @@ public sealed class PackModule : IModule
             "Battleship's Incursion event and map files."),
         new BoolOption("packs.cluedo", "Cluedo", false,
                         "Cluedo's event and map files, its overlay and RandomizerHelper."),
+        new BoolOption("packs.leonine_locked", "Leonine Locked", false,
+            "Legacy Leonine Locked's game files."),
+        new BoolOption("packs.stormvault", "Stormvault", false,
+            "Legacy Stormvault's game files."),
+        new BoolOption("packs.academy_keyed", "Academy Keyed", false,
+            "Legacy Academy Keyed's game files."),
     };
 
     public bool IsActive(OptionSet options) => Options.Any(o => options.GetBool(o.Key));
@@ -26,6 +32,9 @@ public sealed class PackModule : IModule
     {
         if (options.GetBool("packs.incursion")) yield return "Incursion";
         if (options.GetBool("packs.cluedo")) yield return "Cluedo";
+        if (options.GetBool("packs.leonine_locked")) yield return "LeonineLocked";
+        if (options.GetBool("packs.stormvault")) yield return "Stormvault";
+        if (options.GetBool("packs.academy_keyed")) yield return "AcademyKeyed";
     }
 
     // Native DLLs, relative to the Mod Engine 3 folder, that come with each pack

@@ -1,0 +1,24 @@
+{
+    "name": "Legacy - Academy Keyed",
+    "description": "Legacy-Locked Bingo Format restricted to Academy of Raya Lucaria.",
+    "order": 32,
+    "options": {
+        "me3.stutter_fix": true,
+        "me3.crash_fix": true,
+        "packs.academy_keyed": true,
+        "starting_classes.enabled": true,
+        "starting_classes.stat_mode": "Rune level 1 (all stats 10)",
+        "starting_classes.equipment": "None",
+        "starting_classes.caster_kits": false,
+        "starting_classes.starting_runes": 36000,
+        "starlight.enabled": true,
+        "starlight.pool": "AcademyKeyed",
+        "starlight.weapon_count": 3,
+        "starlight.weapon_cost": 5,
+        "starlight.max_levels_off": 16,
+        "starlight.talisman_count": 2,
+        "starlight.physick_count": 2,
+        "starlight.armor_sets": 2,
+        "starlight.free_items": true
+    }
+}

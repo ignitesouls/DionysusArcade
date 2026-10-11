@@ -1,0 +1,21 @@
+{
+  "ProjectName": "AcademyKeyed",
+  "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
+  "GameType": 8,
+  "PinnedParams": [],
+  "PinnedRows": {
+    "SpEffectParam": [
+      4306,
+      4271,
+      4288
+    ],
+    "NpcParam": [
+      31811024,
+      35700038
+    ]
+  },
+  "PinnedFields": {},
+  "UseLooseParams": false,
+  "PartialParams": false,
+  "LastFmgLanguageUsed": ""
+}

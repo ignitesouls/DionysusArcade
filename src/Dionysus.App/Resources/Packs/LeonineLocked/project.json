@@ -1,0 +1,23 @@
+{
+  "ProjectName": "LeonineLocked",
+  "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
+  "GameType": 8,
+  "PinnedParams": [],
+  "PinnedRows": {
+    "SpEffectParam": [
+      4306,
+      4271,
+      4288
+    ],
+    "ShopLineupParam": [
+      100846
+    ],
+    "EquipParamGoods": [
+      8133
+    ]
+  },
+  "PinnedFields": {},
+  "UseLooseParams": false,
+  "PartialParams": false,
+  "LastFmgLanguageUsed": ""
+}

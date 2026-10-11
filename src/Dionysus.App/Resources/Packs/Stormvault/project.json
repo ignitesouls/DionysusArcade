@@ -1,0 +1,24 @@
+{
+  "ProjectName": "Stormvault",
+  "GameRoot": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\ELDEN RING\\Game",
+  "GameType": 8,
+  "PinnedParams": [
+    "EquipParamGoods",
+    "ItemLotParam_map"
+  ],
+  "PinnedRows": {
+    "SpEffectParam": [
+      4306,
+      4271,
+      4288
+    ],
+    "NpcParam": [
+      523560020,
+      524240080
+    ]
+  },
+  "PinnedFields": {},
+  "UseLooseParams": false,
+  "PartialParams": false,
+  "LastFmgLanguageUsed": ""
+}
